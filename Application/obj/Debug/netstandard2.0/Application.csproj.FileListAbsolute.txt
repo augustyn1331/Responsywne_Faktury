@@ -1,0 +1,14 @@
+D:\Inf\strona\Application\bin\Debug\netstandard2.0\Application.deps.json
+D:\Inf\strona\Application\bin\Debug\netstandard2.0\Application.dll
+D:\Inf\strona\Application\bin\Debug\netstandard2.0\Application.pdb
+D:\Inf\strona\Application\bin\Debug\netstandard2.0\Domain.dll
+D:\Inf\strona\Application\bin\Debug\netstandard2.0\Persistence.dll
+D:\Inf\strona\Application\bin\Debug\netstandard2.0\Domain.pdb
+D:\Inf\strona\Application\bin\Debug\netstandard2.0\Persistence.pdb
+D:\Inf\strona\Application\obj\Debug\netstandard2.0\Application.csprojAssemblyReference.cache
+D:\Inf\strona\Application\obj\Debug\netstandard2.0\Application.AssemblyInfoInputs.cache
+D:\Inf\strona\Application\obj\Debug\netstandard2.0\Application.AssemblyInfo.cs
+D:\Inf\strona\Application\obj\Debug\netstandard2.0\Application.csproj.CoreCompileInputs.cache
+D:\Inf\strona\Application\obj\Debug\netstandard2.0\Application.csproj.CopyComplete
+D:\Inf\strona\Application\obj\Debug\netstandard2.0\Application.dll
+D:\Inf\strona\Application\obj\Debug\netstandard2.0\Application.pdb
