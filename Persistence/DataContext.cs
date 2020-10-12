@@ -12,6 +12,7 @@ namespace Persistence
         }
 
         public DbSet<Value> Values { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
