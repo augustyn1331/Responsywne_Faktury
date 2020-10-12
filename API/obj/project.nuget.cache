@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uCi7/eRbXZPk6HCFLWqJRLdcm1m/ozKwdAzDXIiwdu5/Braapz+ye1mkB8+gsjPZsk+tDrogQonf1ESo3Eq6Bw==",
+  "dgSpecHash": "4Srb09tNiuKNdf4n74UduVy3CQApWN23ySgaTUhdlWqW64IdkDB8KMm/sOUY8PeX25UofywD/Rffy9l9mUNh4g==",
   "success": true,
-  "projectFilePath": "D:\\Inf\\strona\\API\\API.csproj",
+  "projectFilePath": "D:\\Inf\\strona\\api\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qwertt\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\qwertt\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",

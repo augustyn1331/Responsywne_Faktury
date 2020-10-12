@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Inf\\strona\\API\\API.csproj": {}
+    "D:\\Inf\\strona\\api\\API.csproj": {}
   },
   "projects": {
-    "D:\\Inf\\strona\\API\\API.csproj": {
+    "D:\\Inf\\strona\\api\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Inf\\strona\\API\\API.csproj",
+        "projectUniqueName": "D:\\Inf\\strona\\api\\API.csproj",
         "projectName": "API",
-        "projectPath": "D:\\Inf\\strona\\API\\API.csproj",
+        "projectPath": "D:\\Inf\\strona\\api\\API.csproj",
         "packagesPath": "C:\\Users\\qwertt\\.nuget\\packages\\",
-        "outputPath": "D:\\Inf\\strona\\API\\obj\\",
+        "outputPath": "D:\\Inf\\strona\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\qwertt\\AppData\\Roaming\\NuGet\\NuGet.Config",
