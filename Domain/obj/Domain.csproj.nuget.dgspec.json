@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Inf\\strona\\Domain\\Domain.csproj": {}
+    "d:\\Inf\\strona\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "D:\\Inf\\strona\\Domain\\Domain.csproj": {
+    "d:\\Inf\\strona\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Inf\\strona\\Domain\\Domain.csproj",
+        "projectUniqueName": "d:\\Inf\\strona\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "D:\\Inf\\strona\\Domain\\Domain.csproj",
+        "projectPath": "d:\\Inf\\strona\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\qwertt\\.nuget\\packages\\",
-        "outputPath": "D:\\Inf\\strona\\Domain\\obj\\",
+        "outputPath": "d:\\Inf\\strona\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\qwertt\\AppData\\Roaming\\NuGet\\NuGet.Config",

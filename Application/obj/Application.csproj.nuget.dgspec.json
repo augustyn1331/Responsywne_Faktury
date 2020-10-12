@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Inf\\strona\\Application\\Application.csproj": {}
+    "d:\\Inf\\strona\\Application\\Application.csproj": {}
   },
   "projects": {
-    "D:\\Inf\\strona\\Application\\Application.csproj": {
+    "d:\\Inf\\strona\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Inf\\strona\\Application\\Application.csproj",
+        "projectUniqueName": "d:\\Inf\\strona\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "D:\\Inf\\strona\\Application\\Application.csproj",
+        "projectPath": "d:\\Inf\\strona\\Application\\Application.csproj",
         "packagesPath": "C:\\Users\\qwertt\\.nuget\\packages\\",
-        "outputPath": "D:\\Inf\\strona\\Application\\obj\\",
+        "outputPath": "d:\\Inf\\strona\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\qwertt\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -27,11 +27,11 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "D:\\Inf\\strona\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\Inf\\strona\\Domain\\Domain.csproj"
+              "d:\\Inf\\strona\\Domain\\Domain.csproj": {
+                "projectPath": "d:\\Inf\\strona\\Domain\\Domain.csproj"
               },
-              "D:\\Inf\\strona\\Persistence\\Persistence.csproj": {
-                "projectPath": "D:\\Inf\\strona\\Persistence\\Persistence.csproj"
+              "d:\\Inf\\strona\\Persistence\\Persistence.csproj": {
+                "projectPath": "d:\\Inf\\strona\\Persistence\\Persistence.csproj"
               }
             }
           }
@@ -45,6 +45,10 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",
@@ -66,14 +70,14 @@
         }
       }
     },
-    "D:\\Inf\\strona\\Domain\\Domain.csproj": {
+    "d:\\Inf\\strona\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Inf\\strona\\Domain\\Domain.csproj",
+        "projectUniqueName": "d:\\Inf\\strona\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "D:\\Inf\\strona\\Domain\\Domain.csproj",
+        "projectPath": "d:\\Inf\\strona\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\qwertt\\.nuget\\packages\\",
-        "outputPath": "D:\\Inf\\strona\\Domain\\obj\\",
+        "outputPath": "d:\\Inf\\strona\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\qwertt\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -121,14 +125,14 @@
         }
       }
     },
-    "D:\\Inf\\strona\\Persistence\\Persistence.csproj": {
+    "d:\\Inf\\strona\\Persistence\\Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Inf\\strona\\Persistence\\Persistence.csproj",
+        "projectUniqueName": "d:\\Inf\\strona\\Persistence\\Persistence.csproj",
         "projectName": "Persistence",
-        "projectPath": "D:\\Inf\\strona\\Persistence\\Persistence.csproj",
+        "projectPath": "d:\\Inf\\strona\\Persistence\\Persistence.csproj",
         "packagesPath": "C:\\Users\\qwertt\\.nuget\\packages\\",
-        "outputPath": "D:\\Inf\\strona\\Persistence\\obj\\",
+        "outputPath": "d:\\Inf\\strona\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\qwertt\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -144,8 +148,8 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "D:\\Inf\\strona\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\Inf\\strona\\Domain\\Domain.csproj"
+              "d:\\Inf\\strona\\Domain\\Domain.csproj": {
+                "projectPath": "d:\\Inf\\strona\\Domain\\Domain.csproj"
               }
             }
           }

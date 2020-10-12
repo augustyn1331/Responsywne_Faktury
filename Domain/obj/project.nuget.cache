@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xbXuAJtFm/OTMH2j1kUEhcMo/twf9rAedX1ELteM2o77pEErrCKeMqEKHfd0+shWUEDE1zFiAd3N9ArxJ6Aggw==",
+  "dgSpecHash": "HqGSgQl2Me+ug8FEIcWoHiUATX4CNPANtDEdWh4neBeVmyD8g8SJH+f0Z6bWSOtycpUF3FCHS4Kn8eAATEJq9w==",
   "success": true,
-  "projectFilePath": "D:\\Inf\\strona\\Domain\\Domain.csproj",
+  "projectFilePath": "d:\\Inf\\strona\\Domain\\Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qwertt\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\qwertt\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
