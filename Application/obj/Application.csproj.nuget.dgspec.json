@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\Inf\\strona\\Application\\Application.csproj": {}
+    "D:\\Inf\\strona\\Application\\Application.csproj": {}
   },
   "projects": {
-    "d:\\Inf\\strona\\Application\\Application.csproj": {
+    "D:\\Inf\\strona\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Inf\\strona\\Application\\Application.csproj",
+        "projectUniqueName": "D:\\Inf\\strona\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "d:\\Inf\\strona\\Application\\Application.csproj",
+        "projectPath": "D:\\Inf\\strona\\Application\\Application.csproj",
         "packagesPath": "C:\\Users\\qwertt\\.nuget\\packages\\",
-        "outputPath": "d:\\Inf\\strona\\Application\\obj\\",
+        "outputPath": "D:\\Inf\\strona\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\qwertt\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -27,11 +27,11 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "d:\\Inf\\strona\\Domain\\Domain.csproj": {
-                "projectPath": "d:\\Inf\\strona\\Domain\\Domain.csproj"
+              "D:\\Inf\\strona\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\Inf\\strona\\Domain\\Domain.csproj"
               },
-              "d:\\Inf\\strona\\Persistence\\Persistence.csproj": {
-                "projectPath": "d:\\Inf\\strona\\Persistence\\Persistence.csproj"
+              "D:\\Inf\\strona\\Persistence\\Persistence.csproj": {
+                "projectPath": "D:\\Inf\\strona\\Persistence\\Persistence.csproj"
               }
             }
           }
@@ -70,14 +70,14 @@
         }
       }
     },
-    "d:\\Inf\\strona\\Domain\\Domain.csproj": {
+    "D:\\Inf\\strona\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Inf\\strona\\Domain\\Domain.csproj",
+        "projectUniqueName": "D:\\Inf\\strona\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "d:\\Inf\\strona\\Domain\\Domain.csproj",
+        "projectPath": "D:\\Inf\\strona\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\qwertt\\.nuget\\packages\\",
-        "outputPath": "d:\\Inf\\strona\\Domain\\obj\\",
+        "outputPath": "D:\\Inf\\strona\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\qwertt\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -125,14 +125,14 @@
         }
       }
     },
-    "d:\\Inf\\strona\\Persistence\\Persistence.csproj": {
+    "D:\\Inf\\strona\\Persistence\\Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Inf\\strona\\Persistence\\Persistence.csproj",
+        "projectUniqueName": "D:\\Inf\\strona\\Persistence\\Persistence.csproj",
         "projectName": "Persistence",
-        "projectPath": "d:\\Inf\\strona\\Persistence\\Persistence.csproj",
+        "projectPath": "D:\\Inf\\strona\\Persistence\\Persistence.csproj",
         "packagesPath": "C:\\Users\\qwertt\\.nuget\\packages\\",
-        "outputPath": "d:\\Inf\\strona\\Persistence\\obj\\",
+        "outputPath": "D:\\Inf\\strona\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\qwertt\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -148,8 +148,8 @@
         "frameworks": {
           "netstandard2.0": {
             "projectReferences": {
-              "d:\\Inf\\strona\\Domain\\Domain.csproj": {
-                "projectPath": "d:\\Inf\\strona\\Domain\\Domain.csproj"
+              "D:\\Inf\\strona\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\Inf\\strona\\Domain\\Domain.csproj"
               }
             }
           }

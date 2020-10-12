@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DQvDPruELDswBXEyad2M+fICGossqYqCXgbjSY5MVmXRDInUQPxtnzcYoznrVP52H3R76jMjTJwzUR6H7CV6zA==",
+  "dgSpecHash": "bT/i4JWVRtBsSo0bB8wqz+LssVrWYvmWjCS5fq3C8y0fjk4FqKkpBqBECtfyTn87V1FhqpoDW7ApNNKqNl0/7Q==",
   "success": true,
-  "projectFilePath": "d:\\Inf\\strona\\Application\\Application.csproj",
+  "projectFilePath": "D:\\Inf\\strona\\Application\\Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\qwertt\\.nuget\\packages\\mediatr\\9.0.0\\mediatr.9.0.0.nupkg.sha512",
     "C:\\Users\\qwertt\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\9.0.0\\mediatr.extensions.microsoft.dependencyinjection.9.0.0.nupkg.sha512",
