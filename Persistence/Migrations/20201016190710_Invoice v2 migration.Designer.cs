@@ -9,8 +9,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201012143115_Invoice migration")]
-    partial class Invoicemigration
+    [Migration("20201016190710_Invoice v2 migration")]
+    partial class Invoicev2migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,6 +48,9 @@ namespace Persistence.Migrations
                     b.Property<DateTime?>("DueDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("GTU")
+                        .HasColumnType("TEXT");
+
                     b.Property<double>("Gross")
                         .HasColumnType("REAL");
 
@@ -70,6 +73,9 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SellerNIP")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Symbol")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

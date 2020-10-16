@@ -1,10 +1,8 @@
-using System.Collections.Generic;
 using MediatR;
 using Domain;
 using System.Threading.Tasks;
 using System.Threading;
 using Persistence;
-using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace Application.Invoices

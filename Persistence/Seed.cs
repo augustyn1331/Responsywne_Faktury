@@ -29,8 +29,7 @@ namespace Persistence
                         PaymentDate = "14 dni",
                         Comments = "proszę o szybką wysyłkę",
                         Net = 0,
-                        Gross = 0
-                        
+                        Gross = 0,
                     },
                     new Invoice
                     {

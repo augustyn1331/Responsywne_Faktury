@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Domain
 {
@@ -23,6 +21,8 @@ namespace Domain
         public string Comments { get; set; }
         public string PaymentMethod { get; set; }
         public string PaymentDate { get; set; }
+        public string Symbol { get; set; }
+        public string GTU { get; set; }
 
     }
 }

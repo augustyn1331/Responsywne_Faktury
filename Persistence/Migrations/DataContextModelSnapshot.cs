@@ -46,6 +46,9 @@ namespace Persistence.Migrations
                     b.Property<DateTime?>("DueDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("GTU")
+                        .HasColumnType("TEXT");
+
                     b.Property<double>("Gross")
                         .HasColumnType("REAL");
 
@@ -68,6 +71,9 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SellerNIP")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Symbol")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class Invoicemigration : Migration
+    public partial class Invoicev2migration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,7 +27,9 @@ namespace Persistence.Migrations
                     Currency = table.Column<string>(nullable: true),
                     Comments = table.Column<string>(nullable: true),
                     PaymentMethod = table.Column<string>(nullable: true),
-                    PaymentDate = table.Column<string>(nullable: true)
+                    PaymentDate = table.Column<string>(nullable: true),
+                    Symbol = table.Column<string>(nullable: true),
+                    GTU = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
