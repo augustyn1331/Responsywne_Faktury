@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Header, Icon, List } from "semantic-ui-react";
+import { Container, List } from "semantic-ui-react";
 import { IInvoice } from "../models/invoice";
+import { NavBar } from "../../features/nav/NavBar";
+
 
 const App = () => {
   const [invoices, setInvoices] = useState<IInvoice[]>([]);
+  
   
   useEffect(() => {
       axios
@@ -16,18 +19,15 @@ const App = () => {
 
   return (
     <div>
-      <Header as="h2" icon>
-        <Icon name="users" />
-        strona
-        <Header.Subheader>
-          Manage your account settings and set e-mail preferences.
-        </Header.Subheader>
-      </Header>
+      <NavBar></NavBar>
+      <Container id="Inv" >
       <List>
         {invoices.map((invoice) => (
           <List.Item key={invoice.id}>{invoice.invoiceNumber}</List.Item>
         ))}
       </List>
+      </Container>
+
     </div>
   );
 };
