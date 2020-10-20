@@ -1,9 +1,0 @@
-D:\Inf\strona\Domain\bin\Debug\netstandard2.0\Domain.deps.json
-D:\Inf\strona\Domain\bin\Debug\netstandard2.0\Domain.dll
-D:\Inf\strona\Domain\bin\Debug\netstandard2.0\Domain.pdb
-D:\Inf\strona\Domain\obj\Debug\netstandard2.0\Domain.csprojAssemblyReference.cache
-D:\Inf\strona\Domain\obj\Debug\netstandard2.0\Domain.AssemblyInfoInputs.cache
-D:\Inf\strona\Domain\obj\Debug\netstandard2.0\Domain.AssemblyInfo.cs
-D:\Inf\strona\Domain\obj\Debug\netstandard2.0\Domain.csproj.CoreCompileInputs.cache
-D:\Inf\strona\Domain\obj\Debug\netstandard2.0\Domain.dll
-D:\Inf\strona\Domain\obj\Debug\netstandard2.0\Domain.pdb
