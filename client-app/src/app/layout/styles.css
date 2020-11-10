@@ -1,29 +1,15 @@
+
 body {
-  background-color: rgb(234, 234, 234) !important;
-}
-
-
-.ui.vertical.menu .item > img:not(.ui):only-child{
-  max-width: 60%;
-  margin: auto;
-  display: "flex";
   
+  background-color: rgb(244, 244, 244) !important;
 }
 
-.ui.inverted.vertical.left.fixed.menu {
-  background-image: linear-gradient(
-    135deg,
-    rgb(23, 83, 160) 0%,
-    rgb(0, 180, 255) 99%
-  ) !important;
-  font-size: 19px;
-  text-align: center;
-  margin: auto;
-  display: "flex";
-  
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@200;300&display=swap');
+
+* {
+  font-family: "Sora", sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-#Inv.ui.container{
-  height: 50em;
-  align-items: center 
-}
