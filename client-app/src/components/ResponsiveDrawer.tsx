@@ -19,7 +19,6 @@ import {
   Theme,
   createStyles,
 } from "@material-ui/core/styles";
-import { Button, Typography } from "@material-ui/core";
 
 const drawerWidth = 240;
 

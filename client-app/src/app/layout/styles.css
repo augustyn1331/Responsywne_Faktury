@@ -16,3 +16,14 @@ body {
 img{
   width:3.4em;
 }
+
+.MuiPickersToolbarText-toolbarTxt {
+  color: rgb(244, 244, 244) !important;
+}
+.MuiPickersToolbarText-toolbarBtnSelected {
+  color: rgb(244, 244, 244) !important;
+}
+
+.MuiSelect-select:focus {
+  background-color: rgba(0, 0, 0, 0) !important;
+}

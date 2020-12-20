@@ -8,6 +8,9 @@ import {createMuiTheme,} from "@material-ui/core/styles";
       secondary: {
         main: "#fdfdff",
       },
+      success:{
+main: "#4caf50",
+      },
     },
     typography: {
       fontFamily: ["Sora", "sans-serif"].join(","),
@@ -49,7 +52,39 @@ import {createMuiTheme,} from "@material-ui/core/styles";
           fontWeight: 500,
         },
       },
-      
+      MuiButtonBase:{
+        root:{
+          marginTop:"-2px !important",
+          fontWeight:400,
+          height: "3.3em !important",
+        }
+      },
+      MuiOutlinedInput:{
+        root:{
+          height: "3em",
+        },
+        adornedEnd:{
+          padding: "2px !important",
+        }
+      },
+      MuiInputBase:{
+        root:{
+          fontWeight:300,
+        }
+      },
+      MuiIconButton: {
+        root: {
+          '&:hover': {
+            backgroundColor: "$labelcolor"
+          }
+        }},
+        MuiInputLabel: { // Name of the component ⚛️ / style sheet
+          root: { // Name of the rule
+            "&$focused": { // increase the specificity for the pseudo class
+              backgroundColor: "#FFFFFF"
+            }
+          }
+        },
     },
   });
 

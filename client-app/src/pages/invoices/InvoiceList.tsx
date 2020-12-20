@@ -1,5 +1,5 @@
 import React from "react";
-import { IInvoice } from "../../../app/models/invoice";
+import { IInvoice } from "../../app/models/invoice";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -35,7 +35,8 @@ export const InvoiceList: React.FC<IProps> = ({ invoices }) => {
             <TableCell align="right">DATA</TableCell>
             <TableCell align="right">KONTRAHENT</TableCell>
             <TableCell align="right">NETTO</TableCell>
-            <Hidden xsDown> <TableCell align="right">BRUTTO</TableCell> </Hidden>
+            <Hidden xsDown> 
+            <TableCell align="right">BRUTTO</TableCell> </Hidden>
           </TableRow>
         </TableHead>
         <TableBody>

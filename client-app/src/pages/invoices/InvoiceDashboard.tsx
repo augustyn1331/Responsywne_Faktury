@@ -1,25 +1,24 @@
-import React from "react";
-import { IInvoice } from "../../../app/models/invoice";
+import React, { useEffect, useState } from "react";
+import { IInvoice } from "../../app/models/invoice";
 import {
   Container,
   createStyles,
   Grid,
   makeStyles,
-  Paper,
   Theme,
 } from "@material-ui/core";
 import ListAltRoundedIcon from "@material-ui/icons/ListAltRounded";
-import { PageHeader } from "../../PageHeader";
-import { InvoiceForm } from "../form/InvoiceForm";
+import { InvoiceForm } from "./InvoiceForm";
 import { InvoiceList } from "./InvoiceList";
-import { PageFooter } from "../../PageFooter";
-
+import { PageFooter } from "../../components/PageFooter";
+import { PageHeader } from "../../components/PageHeader";
+import axios from "axios";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      marginTop: "6.5em",
+      marginTop: "7em",
       maxWidth: "100%",
       [theme.breakpoints.down("md")]: {
         marginTop: "-4em",
@@ -56,14 +55,20 @@ const useStyles = makeStyles((theme: Theme) =>
   
 );
 
-interface IProps {
-  invoices: IInvoice[];
-}
 
-export const InvoiceDashboard: React.FC<IProps> = ({
-  invoices 
-}) => {
+
+export const InvoiceDashboard = () => {
+  
   const classes = useStyles();
+  const [invoices, setInvoices] = useState<IInvoice[]>([]);
+  useEffect(() => {
+    axios
+      .get<IInvoice[]>("http://localhost:5000/api/invoices")
+      .then((response) => {
+        setInvoices(response.data);
+      });
+  }, []);
+
   return (
     <Container className={classes.root}>
       <Grid className={classes.grid} container spacing={2}>
@@ -77,17 +82,9 @@ export const InvoiceDashboard: React.FC<IProps> = ({
           <InvoiceList invoices={invoices}/>
         </Grid>
         <Grid item xs={12}>
-          <InvoiceForm />
+          <InvoiceForm invoices={invoices}/>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}>xs=6 sm=3</Paper>
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <Paper className={classes.paper}>xs=6 sm=3</Paper>
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <Paper className={classes.paper}>xs=6 sm=3</Paper>
-        </Grid>
+
         <Grid className={classes.paper} item xs={12}>
           <PageFooter />
         </Grid>
