@@ -7,18 +7,18 @@ import {
 } from "@material-ui/core";
 import React from "react";
 
-export const Select = (props: any) => {
-  const { name, label, value, onChange, options } = props;
 
+export const Select = (props: any) => {
+  const { name, label, value, onChange, options,error=null } = props;
   return (
     <FormControl variant="outlined">
-      <InputLabel>{label}</InputLabel>
+      {error ? <InputLabel error>{label}</InputLabel> : <InputLabel>{label}</InputLabel>}
       <MuiSelect
         label={label}
         name={name}
         value={value}
         onChange={onChange}
-        margin="none"
+        {...(error && {error:true, helperText:error})}
       >
         <MenuItem value="">None</MenuItem>
         {options.map((item: any) => (
@@ -27,6 +27,7 @@ export const Select = (props: any) => {
           </MenuItem>
         ))}
       </MuiSelect>
+      {error && <FormHelperText error>{error}</FormHelperText>}
     </FormControl>
   );
 };

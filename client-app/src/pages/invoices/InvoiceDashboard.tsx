@@ -7,7 +7,7 @@ import {
   makeStyles,
   Theme,
 } from "@material-ui/core";
-import ListAltRoundedIcon from "@material-ui/icons/ListAltRounded";
+import LibraryBooksOutlinedIcon from '@material-ui/icons/LibraryBooksOutlined';
 import { InvoiceForm } from "./InvoiceForm";
 import { InvoiceList } from "./InvoiceList";
 import { PageFooter } from "../../components/PageFooter";
@@ -75,7 +75,7 @@ export const InvoiceDashboard = () => {
         <Grid className={classes.paper} item xs={12}>
           <PageHeader
             title="FAKTURY"
-            icon={<ListAltRoundedIcon className={classes.largeIcon} />}
+            icon={<LibraryBooksOutlinedIcon className={classes.largeIcon} />}
           />
         </Grid>
         <Grid item xs={12}>

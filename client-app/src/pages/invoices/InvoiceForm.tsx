@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { IInvoice } from "../../app/models/invoice";
-import { Grid, Hidden, IconButton, makeStyles, Paper } from "@material-ui/core";
+import { Button, Grid, Hidden, IconButton, makeStyles, Paper } from "@material-ui/core";
 import { useForm, Form } from "../../components/useForm";
 import { Controls } from "../../components/controls/Controls";
 import * as invoiceService from "../../services/invoiceService";
-import RotateLeftIcon from "@material-ui/icons/RotateLeft";
+import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
+import RotateLeftOutlinedIcon from '@material-ui/icons/RotateLeftOutlined';
+
+const useStyles = makeStyles((theme) => ({
+  top: {
+    paddingTop: "5px",
+  },
+}));
 
 interface IProps {
   invoices: IInvoice[];
@@ -22,8 +29,8 @@ const initialFValues = {
   customerAddress: "",
   date: new Date(),
   dueDate: new Date(),
-  net: 0,
-  gross: 0,
+  net: "",
+  gross: "",
   currency: "",
   comments: "",
   paymentMethod: "",
@@ -31,18 +38,50 @@ const initialFValues = {
   symbol: "",
   gtu: "",
 };
-
-const useStyles = makeStyles((theme) => ({
-  top: {
-    paddingTop: "5px",
-  },
-}));
-
 export const InvoiceForm: React.FC<IProps> = ({}) => {
-  const { values, setValues, handleInputChange } = useForm(initialFValues);
+  const validate = () => {
+    let temp: any = {};
+    temp.invoiceNumber = values.invoiceNumber ? "" : "To pole jest niezbędne.";
+    temp.seller = values.seller ? "" : "Wprowadź swoje dane.";
+    temp.sellerAddress = values.sellerAddress
+      ? ""
+      : "Wprowadź adres Kontrahenta.";
+    temp.sellerNIP = values.sellerNIP.length > 9 ? "" : "Błędny numer NIP.";
+    temp.customer = values.customer ? "" : "Wprowadź dane kontrahenta.";
+    temp.customerNIP =
+      values.customerNIP.length > 9 ? "" : "Błędny numer NIP Kontrahenta.";
+    temp.customerAddress = values.customerAddress
+      ? ""
+      : "Wprowadź adres Kontrahenta.";
+    temp.currency = values.currency.length != 0 ? "" : "Wybierz walutę."; //dodac regex
+    temp.paymentMethod = values.paymentMethod
+      ? ""
+      : "Wprowadż metodę płatności.";
+    temp.paymentDate = values.paymentDate ? "" : "Wprowadż metodę płatności.";
+    // temp.dueDate = values.dueDate.getTime() > values.date.getTime() ? "" : "Data zrealizowania nie może występować przed datą wystawienia"
+
+    setErrors({
+      ...temp,
+    });
+    return Object.values(temp).every((x) => x == "");
+  };
+
+  const {
+    values,
+    setValues,
+    errors,
+    setErrors,
+    handleInputChange,
+    resetForm,
+  } = useForm(initialFValues);
   const classes = useStyles();
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    if (validate()) window.alert("dupa");
+  };
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Paper elevation={2}>
         <Grid container spacing={0} className={classes.top}>
           <Grid item xs={6} sm={5} lg={4}>
@@ -52,6 +91,7 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
               label="Numer faktury"
               value={values.invoiceNumber}
               onChange={handleInputChange}
+              error={(errors as any).invoiceNumber}
             />
           </Grid>
           <Grid item xs={6}></Grid>
@@ -63,6 +103,7 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
                 name="seller"
                 value={values.seller}
                 onChange={handleInputChange}
+                error={(errors as any).seller}
               />
             </Grid>
             <Grid item xs={5} sm={12}>
@@ -72,6 +113,7 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
                 name="sellerNIP"
                 value={values.sellerNIP}
                 onChange={handleInputChange}
+                error={(errors as any).sellerNIP}
               />
             </Grid>
             <Grid item xs={12}>
@@ -80,6 +122,7 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
                 name="sellerAddress"
                 value={values.sellerAddress}
                 onChange={handleInputChange}
+                error={(errors as any).sellerAddress}
               />
             </Grid>
           </Grid>
@@ -92,6 +135,7 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
                 name="customer"
                 value={values.customer}
                 onChange={handleInputChange}
+                error={(errors as any).customer}
               />
             </Grid>
             <Grid item xs={5} sm={12}>
@@ -101,6 +145,7 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
                 name="customerNIP"
                 value={values.customerNIP}
                 onChange={handleInputChange}
+                error={(errors as any).customerNIP}
               />
             </Grid>
             <Grid item xs={12}>
@@ -109,6 +154,7 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
                 name="customerAddress"
                 value={values.customerAddress}
                 onChange={handleInputChange}
+                error={(errors as any).customerAddress}
               />
             </Grid>
           </Grid>
@@ -128,6 +174,7 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
                 label="Data zrealizowania faktury"
                 value={values.dueDate}
                 onChange={handleInputChange}
+                error={(errors as any).dueDate}
               />
             </Grid>
           </Grid>
@@ -154,13 +201,14 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
           </Grid>
 
           <Grid container item xs={12}>
-          <Grid item xs={4}>
+            <Grid item xs={4}>
               <Controls.Select
                 label="Waluta"
                 name="currency"
                 value={values.currency}
                 onChange={handleInputChange}
                 options={invoiceService.getCurrency}
+                error={(errors as any).currency}
               />
             </Grid>
             <Grid item xs={4}>
@@ -183,31 +231,28 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
             </Grid>
           </Grid>
           <Grid item xs={12}>
-          <Controls.Input
-                variant="outlined"
-                label="Uwagi"
-                name="comments"
-                value={values.comments}
-                onChange={handleInputChange}
-              />
-            </Grid>
+            <Controls.Input
+              variant="outlined"
+              label="Uwagi"
+              name="comments"
+              value={values.comments}
+              onChange={handleInputChange}
+            />
+          </Grid>
 
           <Grid item xs={12}>
             <Controls.Button
-              style={{
-                backgroundColor: "#00b4ff",
-              }}
+              color="secondary"
               type="submit"
-              text="ZATWIERDŹ"
+              text="DODAJ"
+              icon={<AddOutlinedIcon/>}
             />
-            <IconButton aria-label="reset">
-              <RotateLeftIcon
-                style={{
-                  color: "#00b4ff",
-                  fontSize: "1.7em",
-                }}
-              />
-            </IconButton>
+            <Controls.Button
+              color="primary"
+              text="RESETUJ"
+              onClick={resetForm}
+              icon={<RotateLeftOutlinedIcon/>}
+            />
           </Grid>
         </Grid>
       </Paper>
