@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IInvoice } from "../../app/models/invoice";
-import { Button, Grid, Hidden, IconButton, makeStyles, Paper } from "@material-ui/core";
+import { Grid, makeStyles, Paper } from "@material-ui/core";
 import { useForm, Form } from "../../components/useForm";
 import { Controls } from "../../components/controls/Controls";
 import * as invoiceService from "../../services/invoiceService";
@@ -27,8 +27,8 @@ const initialFValues = {
   customer: "",
   customerNIP: "",
   customerAddress: "",
-  date: new Date(),
-  dueDate: new Date(),
+  date: new Date(new Date().getFullYear(),new Date().getMonth() , new Date().getDate()),
+  dueDate: new Date(new Date().getFullYear(),new Date().getMonth() , new Date().getDate()),
   net: "",
   gross: "",
   currency: "",
@@ -39,31 +39,49 @@ const initialFValues = {
   gtu: "",
 };
 export const InvoiceForm: React.FC<IProps> = ({}) => {
-  const validate = () => {
-    let temp: any = {};
-    temp.invoiceNumber = values.invoiceNumber ? "" : "To pole jest niezbędne.";
-    temp.seller = values.seller ? "" : "Wprowadź swoje dane.";
-    temp.sellerAddress = values.sellerAddress
-      ? ""
-      : "Wprowadź adres Kontrahenta.";
-    temp.sellerNIP = values.sellerNIP.length > 9 ? "" : "Błędny numer NIP.";
-    temp.customer = values.customer ? "" : "Wprowadź dane kontrahenta.";
-    temp.customerNIP =
-      values.customerNIP.length > 9 ? "" : "Błędny numer NIP Kontrahenta.";
-    temp.customerAddress = values.customerAddress
-      ? ""
-      : "Wprowadź adres Kontrahenta.";
-    temp.currency = values.currency.length != 0 ? "" : "Wybierz walutę."; //dodac regex
-    temp.paymentMethod = values.paymentMethod
-      ? ""
-      : "Wprowadż metodę płatności.";
-    temp.paymentDate = values.paymentDate ? "" : "Wprowadż metodę płatności.";
-    // temp.dueDate = values.dueDate.getTime() > values.date.getTime() ? "" : "Data zrealizowania nie może występować przed datą wystawienia"
+
+  const validate = (fieldValues=values) => {
+    let temp: any = {...errors};
+    
+    if('invoiceNumber' in fieldValues)
+    temp.invoiceNumber = fieldValues.invoiceNumber ? "" : "To pole jest niezbędne.";
+
+    if('seller' in fieldValues)
+    temp.seller = fieldValues.seller ? "" : "Wprowadź swoje dane.";
+
+    if('sellerAddress' in fieldValues)
+    temp.sellerAddress = fieldValues.sellerAddress ? "" : "Wprowadź adres Kontrahenta.";
+
+    if('sellerNIP' in fieldValues)
+    temp.sellerNIP = fieldValues.sellerNIP.match(/^[0-9]+$/) != null ? "" : "Błędny numer NIP.";
+
+    if('customer' in fieldValues)
+    temp.customer = fieldValues.customer ? "" : "Wprowadź dane kontrahenta.";
+
+    if('customerNIP' in fieldValues)
+    temp.customerNIP = fieldValues.customerNIP.match(/^[0-9]+$/) != null ? "" : "Błędny numer NIP Kontrahenta.";
+
+    if('customerAddress' in fieldValues)
+    temp.customerAddress = fieldValues.customerAddress ? "" : "Wprowadź adres Kontrahenta.";
+
+    if('currency' in fieldValues)
+    temp.currency = fieldValues.currency.length != 0 ? "" : "Wybierz walutę."; //dodac regex
+
+    if('paymentMethod' in fieldValues)
+    temp.paymentMethod = fieldValues.paymentMethod ? "" : "Wprowadż metodę płatności.";
+
+    if('paymentDate' in fieldValues)
+    temp.paymentDate = fieldValues.paymentDate ? "" : "Wprowadż metodę płatności.";
+
+    if('dueDate' in fieldValues)
+    temp.dueDate = fieldValues.dueDate.getTime() >= values.date.getTime() ? "" : "Data zrealizowania nie może występować przed datą wystawienia"
 
     setErrors({
       ...temp,
     });
-    return Object.values(temp).every((x) => x == "");
+
+    if(fieldValues==values)
+        return Object.values(temp).every((x) => x == "");
   };
 
   const {
@@ -73,12 +91,12 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
     setErrors,
     handleInputChange,
     resetForm,
-  } = useForm(initialFValues);
+  } = useForm(initialFValues, true, validate);
   const classes = useStyles();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (validate()) window.alert("dupa");
+    if (validate()) window.alert("Pomyślnie wprowadzono dane");
   };
   return (
     <Form onSubmit={handleSubmit}>
@@ -187,6 +205,7 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
                 name="paymentMethod"
                 value={values.paymentMethod}
                 onChange={handleInputChange}
+                error={(errors as any).paymentMethod}
               />
             </Grid>
             <Grid item xs={6}>
@@ -196,6 +215,7 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
                 name="paymentDate"
                 value={values.paymentDate}
                 onChange={handleInputChange}
+                error={(errors as any).paymentDate}
               />
             </Grid>
           </Grid>

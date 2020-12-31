@@ -1,5 +1,5 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-
+import { plPL } from '@material-ui/core/locale';
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -34,6 +34,7 @@ const theme = createMuiTheme({
         paddingBottom: 16,
         "&:first-child": {
           paddingLeft: 12,
+          textAlign: "left",
         },
         "&:last-child": {
           paddingRight: 12,
@@ -93,6 +94,6 @@ const theme = createMuiTheme({
       }
     },
   },
-});
+},plPL);
 
 export default theme;

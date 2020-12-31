@@ -8,8 +8,8 @@ export interface IInvoice {
     customer: string;
     customerNIP: string;
     customerAddress: string;
-    date: Date;
-    dueDate: Date;
+    date: string;
+    dueDate: string;
     net: number;
     gross: number;
     currency: string;

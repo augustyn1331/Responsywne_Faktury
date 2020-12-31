@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export const useForm = (initialFValues:any) => {
+export const useForm = (initialFValues:any, validateOnChange=false, validate:any) => {
   const [values, setValues] = useState(initialFValues);
   const [errors, setErrors] = useState({});
 
@@ -22,8 +22,12 @@ export const useForm = (initialFValues:any) => {
     setValues({
       ...values,
       [name]: value,
-    });
+    })
+    if(validateOnChange){
+      validate({[name]: value})
+    }
   };
+
 
   const resetForm =()=>{
     setValues(initialFValues);

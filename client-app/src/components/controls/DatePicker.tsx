@@ -1,12 +1,13 @@
 import React from 'react'
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import { FormHelperText, InputLabel } from '@material-ui/core';
 
 
 
 export default function DatePicker(props:any) {
 
-    const { name, label, value, onChange } = props
+    const { name, label, value, onChange,error=null } = props
 
     const convertToDefEventPara = (name:any, value:any) => ({
         target: {
@@ -22,7 +23,7 @@ export default function DatePicker(props:any) {
                 name={name}
                 value={value}
                 onChange={date =>onChange(convertToDefEventPara(name,date))}
-
+                {...(error && {error:true, helperText:error})}
             />
         </MuiPickersUtilsProvider>
     )

@@ -65,6 +65,12 @@ export const InvoiceDashboard = () => {
     axios
       .get<IInvoice[]>("http://localhost:5000/api/invoices")
       .then((response) => {
+        let invoices: IInvoice[] = [];
+        response.data.forEach(invoice => {
+          invoice.date = invoice.date.split('T')[0]
+          invoices.push(invoice);
+        })
+
         setInvoices(response.data);
       });
   }, []);
