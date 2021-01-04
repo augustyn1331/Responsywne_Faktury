@@ -8,7 +8,6 @@ import {
   TablePagination,
   TableSortLabel,
 } from "@material-ui/core";
-import { IInvoice } from "../app/models/invoice";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -23,7 +22,9 @@ const useStyles = makeStyles((theme) => ({
            paddingRight:"12px"
           },
       },  
-
+      "&:first-child": {
+        flexDirection: "row",
+     },
     "&:last-child": {
         [theme.breakpoints.down("xs")]: {
             display:"none"
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export const useTable = (records: IInvoice[], headCells: any) => {
+export const useTable = (records: any, headCells: any, filterFn:any) => {
   const classes = useStyles();
 
   const pages =[2,10,25];
@@ -55,13 +56,16 @@ export const useTable = (records: IInvoice[], headCells: any) => {
       <TableHead>
         <TableRow>
             {headCells.map((headCell:any)=>(
-                <TableCell align="right" key={headCell.id} className={classes.root}>
+                <TableCell align="right" key={headCell.id} className={classes.root}
+                sortDirection={orderBy===headCell.id ? order:false}>
+                  { headCell.disableSorting ? headCell.label :
                     <TableSortLabel
                                     active={orderBy === headCell.id}
                                     direction={orderBy === headCell.id ? order : 'asc'}
                                     onClick={() => { handleSortRequest(headCell.id) }}>
                                     {headCell.label}
                                 </TableSortLabel>
+            }
                 </TableCell>))
             }
         </TableRow>
@@ -88,8 +92,36 @@ const handleChangeRowsPerPage = (event:any) => {
   >
   </TablePagination> )
 
+   function stableSort(array:any, comparator:any) {
+        const stabilizedThis = array.map((el:any, index:any) => [el, index]);
+        stabilizedThis.sort((a:any, b:any) => {
+            const order = comparator(a[0], b[0]);
+            if (order !== 0) return order;
+            return a[1] - b[1];
+        });
+        return stabilizedThis.map((el:any) => el[0]);
+    }
+
+    function getComparator(order:any, orderBy:any) {
+      return order === 'desc'
+          ? (a:any, b:any) => descendingComparator(a, b, orderBy)
+          : (a:any, b:any) => -descendingComparator(a, b, orderBy);
+  }
+
+  function descendingComparator(a:any, b:any, orderBy:any) {
+      if (b[orderBy] < a[orderBy]) {
+          return -1;
+      }
+      if (b[orderBy] > a[orderBy]) {
+          return 1;
+      }
+      return 0;
+  }
+
+
 const recordsAfterPagingAndSorting = () => {
-    return records.slice(page * rowsPerPage, (page + 1) * rowsPerPage)
+  return stableSort(filterFn.fn(records), getComparator(order, orderBy))
+  .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
     
 }
 

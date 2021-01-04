@@ -29,9 +29,13 @@ const theme = createMuiTheme({
       },
     },
     MuiTableCell: {
+      head:{
+        paddingTop: "0.75em",
+        paddingBottom:"0.75em",
+      },
       root: {
-        paddingTop: 16,
-        paddingBottom: 16,
+        paddingTop: "1.175em",
+        paddingBottom:"1.175em",
         "&:first-child": {
           paddingLeft: 12,
           textAlign: "left",
@@ -42,11 +46,6 @@ const theme = createMuiTheme({
         paddingRight: 3,
         paddingLeft: 3,
         fontWeight: 200,
-      },
-    },
-    MuiTableHead: {
-      root: {
-        fontWeight: 500,
       },
     },
     MuiButtonBase: {
@@ -85,6 +84,17 @@ const theme = createMuiTheme({
         },
       },
     },
+    MuiTableSortLabel:{
+      icon: {
+        fontSize:"1em"
+      },
+    },
+    MuiToolbar:{
+      gutters:{
+        paddingLeft:"12px !important"
+      }
+    },
+
     MuiButton: {
       startIcon: {
         marginRight:"4px"

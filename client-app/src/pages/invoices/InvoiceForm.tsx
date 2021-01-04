@@ -104,7 +104,6 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
         <Grid container spacing={0} className={classes.top}>
           <Grid item xs={6} sm={5} lg={4}>
             <Controls.Input
-              variant="outlined"
               name="invoiceNumber"
               label="Numer faktury"
               value={values.invoiceNumber}
@@ -116,7 +115,6 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
           <Grid container item xs={12} sm={6}>
             <Grid item xs={7} sm={12}>
               <Controls.Input
-                variant="outlined"
                 label="Sprzedający"
                 name="seller"
                 value={values.seller}
@@ -126,7 +124,6 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
             </Grid>
             <Grid item xs={5} sm={12}>
               <Controls.Input
-                variant="outlined"
                 label="NIP Sprzedającego"
                 name="sellerNIP"
                 value={values.sellerNIP}
@@ -148,7 +145,6 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
           <Grid container item xs={12} sm={6}>
             <Grid item xs={7} sm={12}>
               <Controls.Input
-                variant="outlined"
                 label="Kontrahent"
                 name="customer"
                 value={values.customer}
@@ -158,7 +154,6 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
             </Grid>
             <Grid item xs={5} sm={12}>
               <Controls.Input
-                variant="outlined"
                 label="NIP Kontrahenta"
                 name="customerNIP"
                 value={values.customerNIP}
@@ -200,7 +195,6 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
           <Grid container item xs={12}>
             <Grid item xs={6}>
               <Controls.Input
-                variant="outlined"
                 label="Metoda płatności"
                 name="paymentMethod"
                 value={values.paymentMethod}
@@ -210,7 +204,6 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
             </Grid>
             <Grid item xs={6}>
               <Controls.Input
-                variant="outlined"
                 label="Termin płatności"
                 name="paymentDate"
                 value={values.paymentDate}
@@ -233,7 +226,6 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
             </Grid>
             <Grid item xs={4}>
               <Controls.Input
-                variant="outlined"
                 label="Netto"
                 name="net"
                 value={values.net}
@@ -242,7 +234,6 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
             </Grid>
             <Grid item xs={4}>
               <Controls.Input
-                variant="outlined"
                 label="Brutto"
                 name="gross"
                 value={values.gross}
@@ -252,7 +243,6 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
           </Grid>
           <Grid item xs={12}>
             <Controls.Input
-              variant="outlined"
               label="Uwagi"
               name="comments"
               value={values.comments}

@@ -1,22 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { IInvoice } from "../../app/models/invoice";
 import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Hidden } from "@material-ui/core";
+import { Hidden, InputAdornment, Toolbar } from "@material-ui/core";
 import { useTable } from "../../components/useTable";
-
+import { Controls } from "../../components/controls/Controls";
+import { Search } from "@material-ui/icons";
 const useStyles = makeStyles((theme) => ({
   table: {
     "& tbody tr:hover": {
       backgroundColor: "#e6f7ff",
       cursor: "pointer",
     },
+  },
+  flexbox:{
+    display:"flex",
+    justifyContent:"space-between",
+  },
+  search:{
+    width: "579px",
+    [theme.breakpoints.down("md")]: {
+      width:"100%"
+     },
   },
 }));
 
@@ -29,14 +37,28 @@ const headCells =
     {id:'date', label:'DATA'},
     {id:'customer', label:'KONTRAHENT'},
     {id:'net', label:'NETTO'},
-    {id:'brutto', label:'BRUTTO'},
+    {id:'brutto', label:'BRUTTO', disableSorting:false},
     
 ]
 
 export const InvoiceList: React.FC<IProps> = ({ invoices }) => {
   const classes = useStyles();
+  const [filterFn, setFilterFn] = useState({ fn: (items:any) => { return items; } })
 
-  const { TblContainer, TblHead,TblPagination,recordsAfterPagingAndSorting } = useTable(invoices, headCells);
+  const { TblContainer, TblHead,TblPagination,recordsAfterPagingAndSorting } = useTable(invoices, headCells,filterFn);
+
+  const handleSearch = (e:any) => {
+    let target = e.target;
+    setFilterFn({
+        fn: (items:any)=> {
+            if (target.value == "")
+                return items;
+            else
+                return items.filter((x:any) => x.customer.toLowerCase().includes(target.value.toLowerCase()))
+        }
+    })
+}
+
   return (
     <Paper elevation={2}>
     <TblContainer>
@@ -57,7 +79,23 @@ export const InvoiceList: React.FC<IProps> = ({ invoices }) => {
         ))}
       </TableBody>
     </TblContainer>
+    <TableRow className={classes.flexbox}>
     <TblPagination/>
+    <Hidden xsDown>
+    <TableCell>
+    <Controls.Input
+              label="Wyszukaj kontrahenta"
+              className={classes.search}
+              InputProps={{
+                startAdornment: (<InputAdornment position="start">
+                    <Search />
+                </InputAdornment>)
+            }}
+            onChange={handleSearch}
+            />
+        </TableCell>
+    </Hidden>
+    </TableRow>
     </Paper>
 
     // <TableContainer component={Paper}>

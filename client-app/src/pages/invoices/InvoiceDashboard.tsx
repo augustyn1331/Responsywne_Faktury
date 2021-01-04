@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
         paddingLeft: theme.spacing(4),
       },
       [theme.breakpoints.up("lg")]: {
-
         paddingRight: theme.spacing(6),
       },
       [theme.breakpoints.up("xl")]: {
