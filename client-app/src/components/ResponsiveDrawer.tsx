@@ -46,20 +46,20 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       position: "absolute",
       left: "5%",
-      
+      color: "white",
     },
     // necessary for content to be below app bar
     toolbar: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      ...theme.mixins.toolbar
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      ...theme.mixins.toolbar,
     },
-    logoHorizontallyCenter:{
-    position: "absolute",
-    left: "50%",
-    top: "50%",
-    transform: "translate(-50%, -50%)"
+    logoHorizontallyCenter: {
+      position: "absolute",
+      left: "50%",
+      top: "50%",
+      transform: "translate(-50%, -50%)",
     },
     drawerPaper: {
       width: drawerWidth,
@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: "center",
       [theme.breakpoints.down("xs")]: {
         width: "70px",
-      },      
+      },
     },
   })
 );
@@ -155,7 +155,7 @@ export default function ResponsiveDrawer(props: Props) {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <IconButton
-            color="secondary"
+            color="default"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
@@ -164,14 +164,13 @@ export default function ResponsiveDrawer(props: Props) {
             <MenuIcon />
           </IconButton>
           <Hidden lgUp>
-
-         <div className={classes.logoHorizontallyCenter}>
-         <img
-          className={classes.logoappbar}
-          src={`/assets/whitelogo.png`}
-          alt="FAKTURY"
-        />
-      </div>
+            <div className={classes.logoHorizontallyCenter}>
+              <img
+                className={classes.logoappbar}
+                src={`/assets/whitelogo.png`}
+                alt="FAKTURY"
+              />
+            </div>
           </Hidden>
         </Toolbar>
       </AppBar>

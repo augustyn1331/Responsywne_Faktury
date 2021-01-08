@@ -3,27 +3,20 @@ import {Typography, makeStyles, Theme, Container } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    backgroundColor: "rgb(244, 244, 244)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    alignContent: "center",
-    marginTop: 'calc(2% + 50px)',
-    bottom: '0',
+    marginTop: 'calc(2% + 30px)',
+    marginBottom: '30px',
   },
-  pageTitle: {
-    paddingLeft: theme.spacing(4),
-    [theme.breakpoints.down("xs")]: {
-      paddingLeft: theme.spacing(1),
-      fontSize: 11,
-    },
+  textFooter: {
+    paddingLeft: theme.spacing(1),
+    fontSize: 11,
+    [theme.breakpoints.up("sm")]: {
+      paddingLeft: theme.spacing(4),
       fontSize: 12,
-
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "column",
+    },
   },
-
 }));
 
 export const PageFooter = () => {
@@ -31,7 +24,7 @@ export const PageFooter = () => {
   return (
         <Container className={classes.root}>
         <img src={`/assets/logo.png`} alt="Miłego dnia :)"/>
-          <Typography className={classes.pageTitle} variant="overline" component="div">
+          <Typography className={classes.textFooter} variant="overline" component="div">
             Kontakt: augustyn1331@gmail.com
           </Typography>
         </Container>

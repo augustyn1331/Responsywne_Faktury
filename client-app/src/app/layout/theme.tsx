@@ -11,6 +11,7 @@ const theme = createMuiTheme({
     success: {
       main: "#4caf50",
     },
+    
   },
   typography: {
     fontFamily: ["Sora", "sans-serif"].join(","),
@@ -24,8 +25,19 @@ const theme = createMuiTheme({
       h2: {
         fontWeight: 200,
       },
+      h3: {
+        fontSize: "1.8em"
+      },
       overline: {
         fontWeight: 300,
+      },
+    },
+    MuiDialog:{
+      paper:{
+        backgroundColor: "rgba(0, 0, 0, .0) !important",
+        marginLeft:"6px",
+        marginRight:"8px",
+        boxShadow: "none",
       },
     },
     MuiTableCell: {
@@ -37,11 +49,11 @@ const theme = createMuiTheme({
         paddingTop: "1.175em",
         paddingBottom:"1.175em",
         "&:first-child": {
-          paddingLeft: 12,
+          paddingLeft: 8,
           textAlign: "left",
         },
         "&:last-child": {
-          paddingRight: 12,
+          paddingRight: 8,
         },
         paddingRight: 3,
         paddingLeft: 3,
@@ -50,8 +62,7 @@ const theme = createMuiTheme({
     },
     MuiButtonBase: {
       root: {
-        fontWeight: 400,
-        height: "3.25em !important",
+        height: "3.20em !important",
       },
     },
     MuiOutlinedInput: {
@@ -69,6 +80,8 @@ const theme = createMuiTheme({
     },
     MuiIconButton: {
       root: {
+        paddingLeft: "6px",
+        paddingRight:"6px",
         "&:hover": {
           backgroundColor: "$labelcolor",
         },
@@ -77,6 +90,7 @@ const theme = createMuiTheme({
     MuiInputLabel: {
       // Name of the component ⚛️ / style sheet
       root: {
+        fontSize: "1em",
         // Name of the rule
         "&$focused": {
           // increase the specificity for the pseudo class
@@ -92,6 +106,15 @@ const theme = createMuiTheme({
     MuiToolbar:{
       gutters:{
         paddingLeft:"12px !important"
+      }
+    },
+    MuiTablePagination:{
+      actions:{
+        marginLeft:"10px",
+      },
+      selectRoot:{
+        marginRight:"10px",
+        marginLeft:0
       }
     },
 

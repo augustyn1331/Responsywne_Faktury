@@ -16,11 +16,12 @@ const useStyles = makeStyles((theme) => ({
       cursor: "pointer",
     },
   },
+  ovrflow:{
+    overflow:"hidden"
+  },
   root:{
     "&:nth-last-child(2)": {
-        [theme.breakpoints.down("xs")]: {
-           paddingRight:"12px"
-          },
+        paddingRight:"8px"
       },  
       "&:first-child": {
         flexDirection: "row",
@@ -81,7 +82,9 @@ const handleChangeRowsPerPage = (event:any) => {
     setRowsPerPage(parseInt(event.target.value, 10))
     setPage(0);
 }
-  const TblPagination = () => (<TablePagination
+  const TblPagination = (other:any) => (
+  <TablePagination
+    className={classes.ovrflow}
     component="div"
     page={page}
     rowsPerPageOptions={pages}
@@ -89,6 +92,7 @@ const handleChangeRowsPerPage = (event:any) => {
     count={records.length}
     onChangePage={handleChangePage}
     onChangeRowsPerPage={handleChangeRowsPerPage}
+    {...other}
   >
   </TablePagination> )
 

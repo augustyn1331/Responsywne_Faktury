@@ -4,10 +4,11 @@ import { Button as MuiButton, makeStyles } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: "13px",
-    margin: theme.spacing(1),
-    [theme.breakpoints.down("xs")]: {
-      marginRight: theme.spacing(0.4),
-      marginTop: "4px !important",
+    marginLeft: theme.spacing(0.8),
+    marginRight: theme.spacing(0.8),
+    marginBottom: "4px",
+    [theme.breakpoints.up("sm")]: {
+      margin: "8px !important",
     },
   },
 }));

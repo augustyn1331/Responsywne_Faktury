@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { IInvoice } from "../../app/models/invoice";
 import { Grid, makeStyles, Paper } from "@material-ui/core";
 import { useForm, Form } from "../../components/useForm";
@@ -11,6 +11,19 @@ const useStyles = makeStyles((theme) => ({
   top: {
     paddingTop: "5px",
   },
+  btn:{
+    color: "red",
+    border: "1px solid rgba(255, 50, 45, 0.5)",
+  },
+  space:{
+    display:"flex",
+    justifyContent:"space-around",
+  },
+  myPaper:{
+    borderRadius: "0px 0px 24px 24px",
+    paddingBottom:"10px",
+    paddingTop:"10px",
+  }
 }));
 
 interface IProps {
@@ -38,7 +51,8 @@ const initialFValues = {
   symbol: "",
   gtu: "",
 };
-export const InvoiceForm: React.FC<IProps> = ({}) => {
+
+export const InvoiceForm: React.FC<IProps> = () => {
 
   const validate = (fieldValues=values) => {
     let temp: any = {...errors};
@@ -100,7 +114,7 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
   };
   return (
     <Form onSubmit={handleSubmit}>
-      <Paper elevation={2}>
+      <Paper elevation={2} className={classes.myPaper}>
         <Grid container spacing={0} className={classes.top}>
           <Grid item xs={6} sm={5} lg={4}>
             <Controls.Input
@@ -250,7 +264,7 @@ export const InvoiceForm: React.FC<IProps> = ({}) => {
             />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={12} className={classes.space}>
             <Controls.Button
               color="secondary"
               type="submit"

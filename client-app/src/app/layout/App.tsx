@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import ResponsiveDrawer from "../../components/ResponsiveDrawer";
 import "./styles.css";
 import theme from "./theme";
@@ -21,28 +20,12 @@ const useStyles = makeStyles((theme: Theme) =>
       // MUI typography elements use REMs, so you can scale the global
       // font size by setting the font-size on the <html> element.
       html: {
-        [theme.breakpoints.down("xs")]: {
-          fontSize: 11.75,
-        },
-        fontSize: 13,
-        [theme.breakpoints.up("sm")]: {
-          fontSize: 14,
+        fontSize: 14,
+        [theme.breakpoints.up("md")]: {
+          fontSize: 15,
         },
       },
     },
-    overrides:{
-      MuiInputBase:{
-        root:{
-          [theme.breakpoints.down("xs")]: {
-            fontSize: 12,
-          },
-          fontSize: 13,
-          [theme.breakpoints.up("sm")]: {
-            fontSize: 14,
-          },
-        }
-      }
-    }
   })
 );
 
@@ -51,7 +34,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid className={classes.grid} container spacing={2}>
+      <Grid className={classes.grid} container>
         <Grid item xs={2} xl={1}>
           <ResponsiveDrawer />
         </Grid>

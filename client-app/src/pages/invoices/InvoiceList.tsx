@@ -5,10 +5,17 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Hidden, InputAdornment, Toolbar } from "@material-ui/core";
+import { Hidden, InputBase } from "@material-ui/core";
 import { useTable } from "../../components/useTable";
 import { Controls } from "../../components/controls/Controls";
 import { Search } from "@material-ui/icons";
+import AddOutlinedIcon from "@material-ui/icons/Add";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+import CloseIcon from "@material-ui/icons/Close";
+import Notification from "../../components/Notification";
+import Popup from "../../components/Popup";
+import { InvoiceForm } from "./InvoiceForm";
+
 const useStyles = makeStyles((theme) => ({
   table: {
     "& tbody tr:hover": {
@@ -16,116 +23,181 @@ const useStyles = makeStyles((theme) => ({
       cursor: "pointer",
     },
   },
-  flexbox:{
-    display:"flex",
-    justifyContent:"space-between",
+  flexbox: {
+    display: "flex",
+    justifyContent: "space-between",
   },
-  search:{
-    width: "579px",
-    [theme.breakpoints.down("md")]: {
-      width:"100%"
-     },
+  // search:{
+  //   width: "579px",
+  //   [theme.breakpoints.down("md")]: {
+  //     width:"100%"
+  //    },
+  // },
+  search: {
+    clear: "both",
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(1),
+      width: "auto",
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inputRoot: {
+    color: "inherit",
+  },
+  noBorder: {
+    borderBottom: "none",
+    [theme.breakpoints.down("sm")]: {
+      paddingRight: "0px !important",
+    },
+  },
+  ovrflow: {
+    overflow: "scroll",
+  },
+  inputInput: {
+    marginTop: "6px",
+    paddingRight: "0px",
+    fontSize: "0.920rem",
+    cursor: "pointer !important",
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "0ch",
+    "&:focus": {
+      width: "86vw",
+    },
+    [theme.breakpoints.up("md")]: {
+      width: "14ch",
+      "&:focus": {
+        width: "40ch",
+      },
+    },
+  },
+  toolbarRoot: {
+    borderRadius: "13px",
+    marginRight: theme.spacing(0.4),
+    marginLeft: theme.spacing(0.4),
+    marginTop: "12px !important",
+    marginBottom: "0px !important",
+    [theme.breakpoints.up("sm")]: {
+      margin: "8px",
+    },
   },
 }));
 
 interface IProps {
   invoices: IInvoice[];
 }
-const headCells =
-  [
-    {id:'invoiceNumber', label:'NUMER FAKTURY'},
-    {id:'date', label:'DATA'},
-    {id:'customer', label:'KONTRAHENT'},
-    {id:'net', label:'NETTO'},
-    {id:'brutto', label:'BRUTTO', disableSorting:false},
-    
-]
+const headCells = [
+  { id: "invoiceNumber", label: "NR FAKTURY" },
+  { id: "date", label: "DATA" },
+  { id: "customer", label: "KONTRAHENT" },
+  { id: "net", label: "NETTO" },
+  { id: "brutto", label: "BRUTTO", disableSorting: false },
+];
 
 export const InvoiceList: React.FC<IProps> = ({ invoices }) => {
   const classes = useStyles();
-  const [filterFn, setFilterFn] = useState({ fn: (items:any) => { return items; } })
+  const [filterFn, setFilterFn] = useState({
+    fn: (items: any) => {
+      return items;
+    },
+  });
+  const [openPopup, setOpenPopup] = useState(false);
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
 
-  const { TblContainer, TblHead,TblPagination,recordsAfterPagingAndSorting } = useTable(invoices, headCells,filterFn);
+  const {
+    TblContainer,
+    TblHead,
+    TblPagination,
+    recordsAfterPagingAndSorting,
+  } = useTable(invoices, headCells, filterFn);
 
-  const handleSearch = (e:any) => {
+  const handleSearch = (e: any) => {
     let target = e.target;
     setFilterFn({
-        fn: (items:any)=> {
-            if (target.value == "")
-                return items;
-            else
-                return items.filter((x:any) => x.customer.toLowerCase().includes(target.value.toLowerCase()))
-        }
-    })
-}
+      fn: (items: any) => {
+        if (target.value == "") return items;
+        else
+          return items.filter((x: any) =>
+            x.customer.toLowerCase().includes(target.value.toLowerCase())
+          );
+      },
+    });
+  };
 
   return (
-    <Paper elevation={2}>
-    <TblContainer>
-      <TblHead></TblHead>
-      <TableBody>
-        {recordsAfterPagingAndSorting().map((row:any) => (
-          <TableRow key={row.id}>
-            <TableCell component="th" scope="row">
-              {row.invoiceNumber}
-            </TableCell>
-            <TableCell align="right">{row.date}</TableCell>
-            <TableCell align="right">{row.customer}</TableCell>
-            <TableCell align="right">{row.net}</TableCell>
-            <Hidden xsDown>
-              <TableCell align="right">{row.gross}</TableCell>
-            </Hidden>
-          </TableRow>
-        ))}
-      </TableBody>
-    </TblContainer>
-    <TableRow className={classes.flexbox}>
-    <TblPagination/>
-    <Hidden xsDown>
-    <TableCell>
-    <Controls.Input
-              label="Wyszukaj kontrahenta"
-              className={classes.search}
-              InputProps={{
-                startAdornment: (<InputAdornment position="start">
-                    <Search />
-                </InputAdornment>)
-            }}
-            onChange={handleSearch}
-            />
-        </TableCell>
-    </Hidden>
-    </TableRow>
-    </Paper>
-
-    // <TableContainer component={Paper}>
-    //   <Table className={classes.table}>
-    //     <TableHead>
-    //       <TableRow>
-    //         <TableCell>NUMER FAKTURY</TableCell>
-    //         <TableCell align="right">DATA</TableCell>
-    //         <TableCell align="right">KONTRAHENT</TableCell>
-    //         <TableCell align="right">NETTO</TableCell>
-    //         <Hidden xsDown>
-    //         <TableCell align="right">BRUTTO</TableCell> </Hidden>
-    //       </TableRow>
-    //     </TableHead>
-    //     <TableBody>
-    //       {invoices.map((row) => (
-    //         <TableRow key={row.id}>
-    //           <TableCell component="th" scope="row">
-    //             {row.invoiceNumber}
-    //           </TableCell>
-    //           <TableCell align="right">22/10/20</TableCell>
-    //           <TableCell align="right">{row.customer}</TableCell>
-    //           <TableCell align="right">{row.net}</TableCell>
-    //           <Hidden xsDown>
-    //           <TableCell align="right">{row.gross}</TableCell>
-    //           </Hidden>
-    //         </TableRow>
-    //       ))}
-    //     </TableBody>
-    //   </Table>
-    // </TableContainer>
+    <>
+      <Paper elevation={2}>
+        <TableRow className={classes.flexbox}>
+          <Controls.Button
+            color="primary"
+            text="DODAJ"
+            icon={<AddOutlinedIcon />}
+            className={classes.toolbarRoot}
+            onClick={() => {setOpenPopup(true);}}
+          />
+        </TableRow>
+        <TblContainer>
+          <TblHead></TblHead>
+          <TableBody>
+            {recordsAfterPagingAndSorting().map((row: any) => (
+              <TableRow key={row.id}>
+                <TableCell component="th" scope="row">
+                  {row.invoiceNumber}
+                </TableCell>
+                <TableCell align="right">{row.date}</TableCell>
+                <TableCell align="right">{row.customer}</TableCell>
+                <TableCell align="right">{row.net}</TableCell>
+                <Hidden xsDown>
+                  <TableCell align="right">{row.gross}</TableCell>
+                </Hidden>
+              </TableRow>
+            ))}
+          </TableBody>
+        </TblContainer>
+        <TableRow className={classes.flexbox}>
+          <TblPagination id="Pagination" />
+          <TableCell className={classes.noBorder}>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <Search />
+              </div>
+              <InputBase
+                onChange={handleSearch}
+                placeholder="Szukaj kontrahenta..."
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+              />
+            </div>
+          </TableCell>
+        </TableRow>
+      </Paper>
+      <Popup
+        title="FAKTURA"
+        openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
+      >
+        <InvoiceForm invoices={invoices}/>
+      </Popup>
+    </>
   );
 };

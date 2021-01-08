@@ -8,7 +8,6 @@ import {
   Theme,
 } from "@material-ui/core";
 import LibraryBooksOutlinedIcon from '@material-ui/icons/LibraryBooksOutlined';
-import { InvoiceForm } from "./InvoiceForm";
 import { InvoiceList } from "./InvoiceList";
 import { PageFooter } from "../../components/PageFooter";
 import { PageHeader } from "../../components/PageHeader";
@@ -18,20 +17,15 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      marginTop: "7em",
       maxWidth: "100%",
-      [theme.breakpoints.down("md")]: {
-        marginTop: "-4em",
-      },
-      [theme.breakpoints.down("xs")]: {
-        marginTop: "-4.8em",
-      },
+      marginTop: "-28px",
       [theme.breakpoints.up("sm")]: {
         paddingRight: theme.spacing(4),
         paddingLeft: theme.spacing(4),
       },
       [theme.breakpoints.up("lg")]: {
         paddingRight: theme.spacing(6),
+        marginTop: "7em",
       },
       [theme.breakpoints.up("xl")]: {
         maxWidth: "95%",
@@ -46,6 +40,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     grid: {
       float: "right",
+    },
+    mobilegrid: {
+      paddingLeft:"0 !important",
+      paddingRight:"2px !important",
+      [theme.breakpoints.up("sm")]: {
+        padding: "8px"
+      },
     },
     largeIcon: {
       fontSize: "4em",
@@ -77,20 +78,19 @@ export const InvoiceDashboard = () => {
   return (
     <Container className={classes.root}>
       <Grid className={classes.grid} container spacing={2}>
-        <Grid className={classes.paper} item xs={12}>
+        <Grid className={classes.mobilegrid} item xs={12}>
           <PageHeader
             title="FAKTURY"
             icon={<LibraryBooksOutlinedIcon className={classes.largeIcon} />}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} className={classes.mobilegrid}>
           <InvoiceList invoices={invoices}/>
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12} className={classes.mobilegrid}>
           <InvoiceForm invoices={invoices}/>
-        </Grid>
-
-        <Grid className={classes.paper} item xs={12}>
+        </Grid> */}
+        <Grid className={classes.mobilegrid} item xs={12}>
           <PageFooter />
         </Grid>
       </Grid>
