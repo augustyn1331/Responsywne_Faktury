@@ -4,9 +4,8 @@ import {
   Container,
   createStyles,
   Grid,
-  makeStyles,
-  Theme,
 } from "@material-ui/core";
+import { makeStyles,Theme } from '@material-ui/core/styles';
 import LibraryBooksOutlinedIcon from '@material-ui/icons/LibraryBooksOutlined';
 import { InvoiceList } from "./InvoiceList";
 import { PageFooter } from "../../components/PageFooter";
@@ -57,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 
-export const InvoiceDashboard = () => {
+export default function InvoiceDashboard (){
   
   const classes = useStyles();
   const [invoices, setInvoices] = useState<IInvoice[]>([]);

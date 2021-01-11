@@ -1,6 +1,8 @@
 import React from "react";
 import { IInvoice } from "../../app/models/invoice";
-import { Grid, makeStyles, Paper } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import { useForm, Form } from "../../components/useForm";
 import { Controls } from "../../components/controls/Controls";
 import * as invoiceService from "../../services/invoiceService";
@@ -110,7 +112,9 @@ export const InvoiceForm: React.FC<IProps> = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (validate()) window.alert("Pomyślnie wprowadzono dane");
+    console.log(values);
+    if (validate()) 
+    window.alert("Pomyślnie wprowadzono dane");
   };
   return (
     <Form onSubmit={handleSubmit}>
@@ -268,11 +272,11 @@ export const InvoiceForm: React.FC<IProps> = () => {
             <Controls.Button
               color="secondary"
               type="submit"
-              text="DODAJ"
+              text="ZATWIERDŹ"
               icon={<AddOutlinedIcon/>}
             />
             <Controls.Button
-              color="primary"
+              color="secondary"
               text="RESETUJ"
               onClick={resetForm}
               icon={<RotateLeftOutlinedIcon/>}

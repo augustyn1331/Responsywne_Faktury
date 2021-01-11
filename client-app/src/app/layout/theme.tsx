@@ -1,4 +1,4 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { unstable_createMuiStrictModeTheme as createMuiTheme } from "@material-ui/core/styles";
 import { plPL } from '@material-ui/core/locale';
 const theme = createMuiTheme({
   palette: {
@@ -38,6 +38,11 @@ const theme = createMuiTheme({
         marginLeft:"6px",
         marginRight:"8px",
         boxShadow: "none",
+      },
+    },
+    MuiDialogActions:{
+      root:{
+        backgroundColor: "white",
       },
     },
     MuiTableCell: {

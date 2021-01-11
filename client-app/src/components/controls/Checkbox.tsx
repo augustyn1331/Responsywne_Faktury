@@ -1,9 +1,7 @@
 import React from "react";
-import {
-  FormControl,
-  Checkbox as MuiCheckbox,
-  FormControlLabel,
-} from "@material-ui/core";
+import {default as MuiCheckbox} from "@material-ui/core/Checkbox";
+import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 export const Checkbox = (props: any) => {
   const { name, label, value, onChange } = props;
 

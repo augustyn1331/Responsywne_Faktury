@@ -5,16 +5,17 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Hidden, InputBase } from "@material-ui/core";
 import { useTable } from "../../components/useTable";
 import { Controls } from "../../components/controls/Controls";
-import { Search } from "@material-ui/icons";
+import Search from "@material-ui/icons/Search";
 import AddOutlinedIcon from "@material-ui/icons/Add";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import CloseIcon from "@material-ui/icons/Close";
 import Notification from "../../components/Notification";
 import Popup from "../../components/Popup";
 import { InvoiceForm } from "./InvoiceForm";
+import Hidden from "@material-ui/core/Hidden";
+import InputBase from "@material-ui/core/InputBase";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -141,7 +142,8 @@ export const InvoiceList: React.FC<IProps> = ({ invoices }) => {
       },
     });
   };
-
+  
+  const openpp = () => {setOpenPopup(true);}
   return (
     <>
       <Paper elevation={2}>
@@ -151,7 +153,7 @@ export const InvoiceList: React.FC<IProps> = ({ invoices }) => {
             text="DODAJ"
             icon={<AddOutlinedIcon />}
             className={classes.toolbarRoot}
-            onClick={() => {setOpenPopup(true);}}
+            onClick={openpp}
           />
         </TableRow>
         <TblContainer>

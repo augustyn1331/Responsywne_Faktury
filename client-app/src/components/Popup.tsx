@@ -1,14 +1,12 @@
 import React from "react";
-import {
-  Dialog,
-  makeStyles,
-  Typography,
-  Slide,
-  Toolbar,
-  IconButton,
-} from "@material-ui/core";
-import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
+import { makeStyles } from "@material-ui/core/styles";
 import { TransitionProps } from "@material-ui/core/transitions";
+import Slide from "@material-ui/core/Slide";
+import Dialog from "@material-ui/core/Dialog";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -17,18 +15,18 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#0b56a2",
   },
   title: {
-    marginLeft: theme.spacing(1.5),
+    marginLeft: theme.spacing(1),
     flex: 1,
     color: "rgb(244, 244, 244)",
   },
-   iconButton: {
+  iconButton: {
     color: "rgb(244, 244, 244)",
     paddingTop: "4px",
     paddingBottom: "4px",
   },
-  icon:{
-    fontSize: "1.6em !important"
-  }
+  icon: {
+    fontSize: "1.6em !important",
+  },
 }));
 
 const Transition = React.forwardRef(function Transition(
@@ -47,21 +45,24 @@ export default function Popup(props: any) {
   };
 
   return (
-    <Dialog open={openPopup} keepMounted TransitionComponent={Transition}>
-        <Toolbar className={classes.appBar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={handleClose}
-            aria-label="close"
-            className={classes.iconButton}
-          >
-            <CloseRoundedIcon className={classes.icon}/>
-          </IconButton>
-          <Typography variant="h5" className={classes.title}>
-            FAKTURA
-          </Typography>
-        </Toolbar>
+    <Dialog
+      open={openPopup}
+      maxWidth={"lg"}
+      keepMounted
+      TransitionComponent={Transition}
+    >
+      <Toolbar className={classes.appBar}>
+       
+        <Typography variant="h5" className={classes.title}>
+          FAKTURA
+        </Typography> <IconButton
+          edge="end"
+          onClick={handleClose}
+          className={classes.iconButton}
+        >
+          <CloseRoundedIcon className={classes.icon} />
+        </IconButton>
+      </Toolbar>
       {children}
     </Dialog>
   );

@@ -27,3 +27,16 @@ img{
 .MuiSelect-select:focus {
   background-color: rgba(0, 0, 0, 0) !important;
 }
+.MuiPickersBasePicker-pickerView {
+ background-color: white !important;
+}
+
+.MuiDialog-container{
+  will-change: transform, z-index !important;
+}
+/* .MuiBackdrop-root{
+  will-change: opacity !important;
+} */
+.MuiDialog-root{
+  will-change:visibility  !important;
+}

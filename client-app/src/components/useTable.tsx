@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  makeStyles,
-  TablePagination,
-  TableSortLabel,
-} from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
+import TablePagination from "@material-ui/core/TablePagination";
 
 const useStyles = makeStyles((theme) => ({
   table: {

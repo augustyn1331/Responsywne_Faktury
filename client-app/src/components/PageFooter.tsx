@@ -1,6 +1,7 @@
 import React from "react";
-import {Typography, makeStyles, Theme, Container } from "@material-ui/core";
-
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: "flex",
