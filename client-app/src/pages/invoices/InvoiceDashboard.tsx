@@ -74,6 +74,14 @@ export default function InvoiceDashboard (){
       });
   }, []);
 
+  const handleCreateInvoice = (invoice:IInvoice)=>{
+    setInvoices([...invoices,invoice])
+  }
+
+  const handleEditInvoice = (invoice:IInvoice)=>{
+    setInvoices([...invoices.filter(a=>a.id!==invoice.id),invoice])
+  }
+  
   return (
     <Container className={classes.root}>
       <Grid className={classes.grid} container spacing={2}>
@@ -84,11 +92,8 @@ export default function InvoiceDashboard (){
           />
         </Grid>
         <Grid item xs={12} className={classes.mobilegrid}>
-          <InvoiceList invoices={invoices}/>
+          <InvoiceList invoices={invoices} createInvoice={handleCreateInvoice} />
         </Grid>
-        {/* <Grid item xs={12} className={classes.mobilegrid}>
-          <InvoiceForm invoices={invoices}/>
-        </Grid> */}
         <Grid className={classes.mobilegrid} item xs={12}>
           <PageFooter />
         </Grid>

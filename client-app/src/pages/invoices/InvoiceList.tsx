@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   searchIcon: {
-    padding: theme.spacing(0, 2),
+    paddingRight:"0px",
     height: "100%",
     position: "absolute",
     pointerEvents: "none",
@@ -64,22 +64,25 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   ovrflow: {
-    overflow: "scroll",
+    overflowX: "scroll",
+    [theme.breakpoints.up("sm")]: {
+      overflowX: "hidden",
+    },
   },
   inputInput: {
     marginTop: "6px",
-    paddingRight: "0px",
+    paddingRight: "1px",
     fontSize: "0.920rem",
     cursor: "pointer !important",
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    paddingLeft: `calc(1.5em + ${theme.spacing(1.9)}px)`,
     transition: theme.transitions.create("width"),
     width: "0ch",
     "&:focus": {
-      width: "86vw",
+      width: "84.75vw",
     },
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("sm")]: {
       width: "14ch",
       "&:focus": {
         width: "40ch",
@@ -87,29 +90,27 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   toolbarRoot: {
-    borderRadius: "13px",
-    marginRight: theme.spacing(0.4),
-    marginLeft: theme.spacing(0.4),
-    marginTop: "12px !important",
-    marginBottom: "0px !important",
-    [theme.breakpoints.up("sm")]: {
-      margin: "8px",
-    },
+    marginTop: "8px",
   },
 }));
 
 interface IProps {
   invoices: IInvoice[];
+  createInvoice: (invoice:IInvoice)=>void;
 }
+
+
 const headCells = [
-  { id: "invoiceNumber", label: "NR FAKTURY" },
-  { id: "date", label: "DATA" },
-  { id: "customer", label: "KONTRAHENT" },
+  { id: "invoiceNumber", label: "NR FAKTURY", align:"left" },
+  { id: "date", label: "DATA", align:"left" },
+  { id: "customer", label: "KONTRAHENT"},
   { id: "net", label: "NETTO" },
   { id: "brutto", label: "BRUTTO", disableSorting: false },
 ];
 
-export const InvoiceList: React.FC<IProps> = ({ invoices }) => {
+export const InvoiceList: React.FC<IProps> = ({ invoices,
+  createInvoice
+}) => {
   const classes = useStyles();
   const [filterFn, setFilterFn] = useState({
     fn: (items: any) => {
@@ -146,7 +147,7 @@ export const InvoiceList: React.FC<IProps> = ({ invoices }) => {
   const openpp = () => {setOpenPopup(true);}
   return (
     <>
-      <Paper elevation={2}>
+      <Paper elevation={2} className={classes.ovrflow}>
         <TableRow className={classes.flexbox}>
           <Controls.Button
             color="primary"
@@ -164,11 +165,11 @@ export const InvoiceList: React.FC<IProps> = ({ invoices }) => {
                 <TableCell component="th" scope="row">
                   {row.invoiceNumber}
                 </TableCell>
-                <TableCell align="right">{row.date}</TableCell>
+                <TableCell>{row.date.toString().split('T')[0]}</TableCell>
                 <TableCell align="right">{row.customer}</TableCell>
-                <TableCell align="right">{row.net}</TableCell>
                 <Hidden xsDown>
-                  <TableCell align="right">{row.gross}</TableCell>
+                <TableCell align="right">{row.net}</TableCell>
+                <TableCell align="right">{row.gross}</TableCell>
                 </Hidden>
               </TableRow>
             ))}
@@ -198,7 +199,7 @@ export const InvoiceList: React.FC<IProps> = ({ invoices }) => {
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
       >
-        <InvoiceForm invoices={invoices}/>
+        <InvoiceForm createInvoice={createInvoice} />
       </Popup>
     </>
   );

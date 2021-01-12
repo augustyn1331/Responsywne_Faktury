@@ -18,13 +18,18 @@ const useStyles = makeStyles((theme) => ({
     overflow:"hidden"
   },
   root:{
-    "&:nth-last-child(2)": {
-        paddingRight:"8px"
-      },  
-      "&:first-child": {
-        flexDirection: "row",
-     },
-    "&:last-child": {
+    flexDirection: "row",
+    //  "&:nth-child(2)": {
+    //   [theme.breakpoints.down("xs")]: {
+    //       textAlign:"left";
+    //     },
+    // },
+    "&:nth-last-child(3)": {
+      flexDirection: "row-reverse",
+      paddingRight:"8px"
+    },
+      "&:nth-last-child(-n+2)": {
+        flexDirection: "row-reverse",
         [theme.breakpoints.down("xs")]: {
             display:"none"
           },
@@ -35,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 export const useTable = (records: any, headCells: any, filterFn:any) => {
   const classes = useStyles();
 
-  const pages =[2,10,25];
+  const pages =[10,20,40];
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(pages[0])
   type Order = 'asc' | 'desc'; //Własny typ Order
@@ -55,7 +60,7 @@ export const useTable = (records: any, headCells: any, filterFn:any) => {
       <TableHead>
         <TableRow>
             {headCells.map((headCell:any)=>(
-                <TableCell align="right" key={headCell.id} className={classes.root}
+                <TableCell align={headCell.align||"right"} key={headCell.id} className={classes.root}
                 sortDirection={orderBy===headCell.id ? order:false}>
                   { headCell.disableSorting ? headCell.label :
                     <TableSortLabel
