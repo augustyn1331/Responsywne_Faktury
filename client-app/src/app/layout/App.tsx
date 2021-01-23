@@ -13,9 +13,9 @@ import Grid from "@material-ui/core/Grid";
 const useStyles = makeStyles((theme: Theme) =>({
     "@global": {
       html: {
-        fontSize: 14,
+        fontSize: "0.875rem",
         [theme.breakpoints.up("md")]: {
-          fontSize: 15,
+          fontSize: "1rem",
         },
       },
     },

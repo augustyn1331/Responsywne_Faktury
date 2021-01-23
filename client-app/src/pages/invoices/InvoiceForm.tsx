@@ -1,37 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { IInvoice } from "../../app/models/invoice";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { useForm, Form } from "../../components/useForm";
 import { Controls } from "../../components/controls/Controls";
 import * as invoiceService from "../../services/invoiceService";
-import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
-import RotateLeftOutlinedIcon from '@material-ui/icons/RotateLeftOutlined';
-import {v4 as uuid} from 'uuid';
+import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
+import RotateLeftOutlinedIcon from "@material-ui/icons/RotateLeftOutlined";
+import { v4 as uuid } from "uuid";
 
 const useStyles = makeStyles((theme) => ({
   top: {
     paddingTop: "5px",
   },
-  btn:{
+  reverse: {
+    flexDirection: "row-reverse",
+  },
+  btn: {
     color: "red",
     border: "1px solid rgba(255, 50, 45, 0.5)",
   },
-  space:{
-    display:"flex",
-    justifyContent:"space-around",
+  space: {
+    display: "flex",
+    justifyContent: "space-around",
   },
-  myPaper:{
+  myPaper: {
     borderRadius: "0px 0px 24px 24px",
-    paddingBottom:"10px",
-    paddingTop:"10px",
-  }
+    paddingBottom: "10px",
+    paddingTop: "4px",
+  },
+  empty: {
+    height: "2em",
+  },
 }));
 
 interface IProps {
-  createInvoice: (invoice:IInvoice)=>void;
+  invoice: IInvoice;
+  createInvoice: (invoice: IInvoice) => void;
+  editInvoice: (invoice: IInvoice) => void;
+  setOpenPopup: (openPopup: boolean) => void;
 }
+
 
 const initialFValues = {
   id: "",
@@ -43,8 +53,16 @@ const initialFValues = {
   customer: "",
   customerNIP: "",
   customerAddress: "",
-  date: new Date(new Date().getFullYear(),new Date().getMonth() , new Date().getDate()),
-  dueDate: new Date(new Date().getFullYear(),new Date().getMonth() , new Date().getDate()),
+  date: new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    new Date().getDate()
+  ),
+  dueDate: new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    new Date().getDate()
+  ),
   net: "",
   gross: "",
   currency: "",
@@ -56,14 +74,16 @@ const initialFValues = {
 };
 
 export const InvoiceForm: React.FC<IProps> = ({
-        createInvoice
+  createInvoice,
+  setOpenPopup,
+  editInvoice,
+  invoice: initialFormState,
 }) => {
+  const validate = (fieldValues = values) => {
+    let temp: any = { ...errors };
 
-  const validate = (fieldValues=values) => {
-    let temp: any = {...errors};
-    
-    // if('invoiceNumber' in fieldValues)
-    // temp.invoiceNumber = fieldValues.invoiceNumber ? "" : "To pole jest niezbędne.";
+    if('invoiceNumber' in fieldValues)
+    temp.invoiceNumber = fieldValues.invoiceNumber ? "" : "To pole jest niezbędne.";
 
     // if('seller' in fieldValues)
     // temp.seller = fieldValues.seller ? "" : "Wprowadź swoje dane.";
@@ -72,21 +92,21 @@ export const InvoiceForm: React.FC<IProps> = ({
     // temp.sellerAddress = fieldValues.sellerAddress ? "" : "Wprowadź adres Kontrahenta.";
 
     // if('sellerNIP' in fieldValues)
-    // temp.sellerNIP = fieldValues.sellerNIP.match(/^[0-9]+$/) != null ? "" : "Błędny numer NIP.";
+    // temp.sellerNIP = fieldValues.sellerNIP.match(/^[0-9\-]+$/) != null ? "" : "Błędny numer NIP.";
 
-    // if('customer' in fieldValues)
-    // temp.customer = fieldValues.customer ? "" : "Wprowadź dane kontrahenta.";
+    if('customer' in fieldValues)
+    temp.customer = fieldValues.customer ? "" : "Wprowadź dane kontrahenta.";
 
-    // if('customerNIP' in fieldValues)
-    // temp.customerNIP = fieldValues.customerNIP.match(/^[0-9]+$/) != null ? "" : "Błędny numer NIP Kontrahenta.";
+    if('customerNIP' in fieldValues)
+    temp.customerNIP = fieldValues.customerNIP.match(/^[0-9-]+$/) != null ? "" : "Błędny numer NIP Kontrahenta.";
 
     // if('accountNumber' in fieldValues)
-    // temp.accountNumber = fieldValues.accountNumber.match(/^[0-9]+$/) != null ? "" : "Błędny numer Konta.";
+    // temp.accountNumber = fieldValues.accountNumber ? "" : "Błędny numer Konta.";
 
     // if('customerAddress' in fieldValues)
     // temp.customerAddress = fieldValues.customerAddress ? "" : "Wprowadź adres Kontrahenta.";
 
-    // if('currency' in fieldValues)
+    // if ("currency" in fieldValues)
     // temp.currency = fieldValues.currency.length != 0 ? "" : "Wybierz walutę."; //dodac regex
 
     // if('paymentMethod' in fieldValues)
@@ -102,8 +122,7 @@ export const InvoiceForm: React.FC<IProps> = ({
       ...temp,
     });
 
-    if(fieldValues==values)
-        return Object.values(temp).every((x) => x == "");
+    if (fieldValues === values) return Object.values(temp).every((x) => x === "");
   };
 
   const {
@@ -116,27 +135,76 @@ export const InvoiceForm: React.FC<IProps> = ({
   } = useForm(initialFValues, true, validate);
   const classes = useStyles();
 
+  const date2string = (dateval:Date) =>
+  {
+    return dateval.toISOString().split("T")[0];
+  }
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log(values);
     if (validate()) {
-      if(values.id.length===0){
+      if (values.id.length === 0) {
         let newInvoice = {
           ...values,
-          date: values.date.toISOString(),
-          id: uuid()
+          date: date2string(values.date),
+          dueDate: date2string(values.dueDate),
+          id: uuid(),
         };
         createInvoice(newInvoice);
+      } 
+      else {
+        if(values.dueDate===initialFormState.dueDate && values.date===initialFormState.date){
+        editInvoice(values);
+        }
+       else if(values.date===initialFormState.date && values.dueDate!==initialFormState.dueDate){
+        let editedInvoice = {
+          ...values,
+          dueDate: date2string(values.dueDate),
+         
+        };
+        editInvoice(editedInvoice);
+       }
+       else if(values.date!==initialFormState.date && values.dueDate===initialFormState.dueDate){
+        let editedInvoice = {
+          ...values,
+          date: date2string(values.date),
+         
+        }; 
+        editInvoice(editedInvoice);
+       }
+       else{
+        let editedInvoice = {
+          ...values,
+          date: date2string(values.date),
+          dueDate: date2string(values.dueDate),
+          
+        };
+        editInvoice(editedInvoice);
+       }
       }
-      
+      setOpenPopup(false);
+      resetForm();
     }
-
   };
+
+  useEffect(() => {
+    if (initialFormState != null)
+      setValues({
+        ...initialFormState,
+      });
+  }, [initialFormState]);
+
   return (
     <Form onSubmit={handleSubmit}>
       <Paper elevation={2} className={classes.myPaper}>
-        <Grid container spacing={0} className={classes.top}>
-          <Grid item xs={6} sm={5} lg={4}>
+        <Grid
+          container
+          spacing={0}
+          className={classes.top}
+          justify="space-between"
+        >
+          <Grid item xs={6} sm={4}>
             <Controls.Input
               name="invoiceNumber"
               label="Numer faktury"
@@ -145,7 +213,25 @@ export const InvoiceForm: React.FC<IProps> = ({
               error={(errors as any).invoiceNumber}
             />
           </Grid>
-          <Grid item xs={6}></Grid>
+          <Grid container item xs={12} sm={6} justify="space-between">
+            <Grid item xs={6} sm={6} md={5}>
+              <Controls.DatePicker
+                name="date"
+                label="Data wystawienia"
+                value={values.date}
+                onChange={handleInputChange}
+              />
+            </Grid>
+            <Grid item xs={6} sm={6} md={5}>
+              <Controls.DatePicker
+                name="dueDate"
+                label="Data sprzedaży"
+                value={values.dueDate}
+                onChange={handleInputChange}
+                error={(errors as any).dueDate}
+              />
+            </Grid>
+          </Grid>
           <Grid container item xs={12} sm={6}>
             <Grid item xs={7} sm={12}>
               <Controls.Input
@@ -175,7 +261,6 @@ export const InvoiceForm: React.FC<IProps> = ({
               />
             </Grid>
           </Grid>
-
           <Grid container item xs={12} sm={6}>
             <Grid item xs={7} sm={12}>
               <Controls.Input
@@ -205,49 +290,10 @@ export const InvoiceForm: React.FC<IProps> = ({
               />
             </Grid>
           </Grid>
-
-          <Grid container item xs={12}>
-            <Grid item xs={6}>
-              <Controls.DatePicker
-                name="date"
-                label="Data wystawienia faktury"
-                value={values.date}
-                onChange={handleInputChange}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <Controls.DatePicker
-                name="dueDate"
-                label="Data zrealizowania faktury"
-                value={values.dueDate}
-                onChange={handleInputChange}
-                error={(errors as any).dueDate}
-              />
-            </Grid>
+          <Grid item sm={12}>
+            <div className={classes.empty} />
           </Grid>
-
-          <Grid container item xs={12}>
-            <Grid item xs={6}>
-              <Controls.Input
-                label="Metoda płatności"
-                name="paymentMethod"
-                value={values.paymentMethod}
-                onChange={handleInputChange}
-                error={(errors as any).paymentMethod}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <Controls.Input
-                label="Termin płatności"
-                name="paymentDate"
-                value={values.paymentDate}
-                onChange={handleInputChange}
-                error={(errors as any).paymentDate}
-              />
-            </Grid>
-          </Grid>
-          <Grid container item xs={12}>
-          <Grid item xs={12}>
+          <Grid item xs={12} md={6}>
             <Controls.Input
               label="Numer konta"
               name="accountNumber"
@@ -256,17 +302,8 @@ export const InvoiceForm: React.FC<IProps> = ({
               error={(errors as any).accountNumber}
             />
           </Grid>
-            <Grid item xs={4}>
-              <Controls.Select
-                label="Waluta"
-                name="currency"
-                value={values.currency}
-                onChange={handleInputChange}
-                options={invoiceService.getCurrency}
-                error={(errors as any).currency}
-              />
-            </Grid>
-            <Grid item xs={4}>
+          <Grid container item xs={8} md={4}>
+            <Grid item xs={6}>
               <Controls.Input
                 label="Netto"
                 name="net"
@@ -274,7 +311,7 @@ export const InvoiceForm: React.FC<IProps> = ({
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={6}>
               <Controls.Input
                 label="Brutto"
                 name="gross"
@@ -283,27 +320,58 @@ export const InvoiceForm: React.FC<IProps> = ({
               />
             </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Controls.Input
-              label="Uwagi"
-              name="comments"
-              value={values.comments}
+          <Grid item xs={4} md={2}>
+            <Controls.Select
+              label="Waluta"
+              name="currency"
+              value={values.currency}
               onChange={handleInputChange}
+              options={invoiceService.getCurrency}
+              error={(errors as any).currency}
             />
+          </Grid>
+
+          <Grid container xs={12} className={classes.reverse}>
+            <Grid item xs={6} md={3}>
+              <Controls.Input
+                label="Metoda płatności"
+                name="paymentMethod"
+                value={values.paymentMethod}
+                onChange={handleInputChange}
+                error={(errors as any).paymentMethod}
+              />
+            </Grid>
+            <Grid item xs={6} md={3}>
+              <Controls.Input
+                label="Termin płatności"
+                name="paymentDate"
+                value={values.paymentDate}
+                onChange={handleInputChange}
+                error={(errors as any).paymentDate}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Controls.Input
+                label="Uwagi"
+                name="comments"
+                value={values.comments}
+                onChange={handleInputChange}
+              />
+            </Grid>
           </Grid>
 
           <Grid item xs={12} className={classes.space}>
             <Controls.Button
-              color="secondary"
+              color="primary"
               type="submit"
               text="ZATWIERDŹ"
-              icon={<AddOutlinedIcon/>}
+              icon={<AddOutlinedIcon />}
             />
             <Controls.Button
-              color="secondary"
+              color="primary"
               text="RESETUJ"
               onClick={resetForm}
-              icon={<RotateLeftOutlinedIcon/>}
+              icon={<RotateLeftOutlinedIcon />}
             />
           </Grid>
         </Grid>

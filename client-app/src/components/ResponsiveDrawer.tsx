@@ -152,7 +152,7 @@ export default function ResponsiveDrawer(props: Props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
+      <AppBar position="fixed" color="primary" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <IconButton
             color="default"

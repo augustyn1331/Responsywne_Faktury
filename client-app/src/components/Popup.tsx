@@ -7,12 +7,13 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
+import DialogContent from "@material-ui/core/DialogContent";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
     borderRadius: "24px 24px 0px 0px !important",
-    backgroundColor: "#0b56a2",
+    backgroundColor: theme.palette.primary.main,
   },
   title: {
     marginLeft: theme.spacing(1),
@@ -37,24 +38,25 @@ const Transition = React.forwardRef(function Transition(
 });
 
 export default function Popup(props: any) {
-  const { title, children, openPopup, setOpenPopup } = props;
+  const { title, children, openPopup, setOpenPopup, setSelected, setEdit } = props;
   const classes = useStyles();
 
   const handleClose = () => {
     setOpenPopup(false);
+    setSelected(null);
+    setEdit(false);
   };
 
   return (
     <Dialog
       open={openPopup}
       maxWidth={"lg"}
-      keepMounted
       TransitionComponent={Transition}
+      scroll="paper"
     >
       <Toolbar className={classes.appBar}>
-       
         <Typography variant="h5" className={classes.title}>
-          FAKTURA
+          {title}
         </Typography> <IconButton
           edge="end"
           onClick={handleClose}
@@ -63,7 +65,12 @@ export default function Popup(props: any) {
           <CloseRoundedIcon className={classes.icon} />
         </IconButton>
       </Toolbar>
-      {children}
+      <DialogContent>
+
+ {children}
+
+      </DialogContent>
+     
     </Dialog>
   );
 }

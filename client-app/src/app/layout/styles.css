@@ -1,6 +1,6 @@
 
 body {
-  
+  overflow-y:scroll;
   background-color: rgb(244, 244, 244) !important;
   font-weight: 200 !important;
 }
@@ -30,13 +30,14 @@ img{
 .MuiPickersBasePicker-pickerView {
  background-color: white !important;
 }
-
 .MuiDialog-container{
   will-change: transform, z-index !important;
 }
-/* .MuiBackdrop-root{
-  will-change: opacity !important;
-} */
 .MuiDialog-root{
   will-change:visibility  !important;
+}
+.MuiAlert-message {
+	padding: 0px !important;
+  font-weight: 300;
+  font-size: 1rem;
 }

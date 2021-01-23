@@ -9,8 +9,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: "#fdfdff",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    alignContent: "center",
     padding: theme.spacing(1),
   },
   pageIcon: {
@@ -18,17 +16,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.down("xs")]: {
       fontSize: "0.85em",
     },
-    color: "#00b4ff",
+    color: theme.palette.primary.main,
   },
   pageTitle: {
-    paddingLeft: theme.spacing(4),
-    [theme.breakpoints.down("xs")]: {
       paddingLeft: theme.spacing(1),
+    [theme.breakpoints.up("sm")]: {
+      paddingLeft: theme.spacing(4),
     },
-
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "column",
   },
 }));
 

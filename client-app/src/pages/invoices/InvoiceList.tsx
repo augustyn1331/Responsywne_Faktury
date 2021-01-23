@@ -8,32 +8,23 @@ import Paper from "@material-ui/core/Paper";
 import { useTable } from "../../components/useTable";
 import { Controls } from "../../components/controls/Controls";
 import Search from "@material-ui/icons/Search";
-import AddOutlinedIcon from "@material-ui/icons/Add";
-import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
-import CloseIcon from "@material-ui/icons/Close";
-import Notification from "../../components/Notification";
-import Popup from "../../components/Popup";
-import { InvoiceForm } from "./InvoiceForm";
 import Hidden from "@material-ui/core/Hidden";
 import InputBase from "@material-ui/core/InputBase";
+import ReceiptRoundedIcon from "@material-ui/icons/ReceiptRounded";
+import EditRoundedIcon from "@material-ui/icons/EditRounded";
+import DeleteOutlineRoundedIcon from "@material-ui/icons/DeleteOutlineRounded";
+import Collapse from "@material-ui/core/Collapse";
+import IconButton from "@material-ui/core/IconButton";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import ConfirmDialog from "../../components/ConfirmDialog";
+import UndoRoundedIcon from '@material-ui/icons/UndoRounded';
 
 const useStyles = makeStyles((theme) => ({
-  table: {
-    "& tbody tr:hover": {
-      backgroundColor: "#e6f7ff",
-      cursor: "pointer",
-    },
-  },
   flexbox: {
     display: "flex",
     justifyContent: "space-between",
   },
-  // search:{
-  //   width: "579px",
-  //   [theme.breakpoints.down("md")]: {
-  //     width:"100%"
-  //    },
-  // },
   search: {
     clear: "both",
     position: "relative",
@@ -44,15 +35,14 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(1),
       width: "auto",
     },
-  },
-  searchIcon: {
-    paddingRight:"0px",
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+  },
+  searchIcon: {
+    paddingRight: "0px",
+    position: "absolute",
+    alignSelf: "bottom",
+    height: "21px",
   },
   inputRoot: {
     color: "inherit",
@@ -69,13 +59,13 @@ const useStyles = makeStyles((theme) => ({
       overflowX: "hidden",
     },
   },
+
   inputInput: {
     marginTop: "6px",
     paddingRight: "1px",
     fontSize: "0.920rem",
     cursor: "pointer !important",
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
+    padding: theme.spacing(0.5, 1, 1, 0),
     paddingLeft: `calc(1.5em + ${theme.spacing(1.9)}px)`,
     transition: theme.transitions.create("width"),
     width: "0ch",
@@ -89,27 +79,184 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  toolbarRoot: {
-    marginTop: "8px",
+
+  customer: {
+    [theme.breakpoints.down("xs")]: {
+      paddingRight: "0px !important",
+    },
+  },
+  collapsebutton: {
+    margin: "0px 4px",
+  },
+  actionsbox: {
+    minWidth: "324px",
+    width: "324px",
+    padding: "0px 3px !important",
+    [theme.breakpoints.up("md")]: {
+      width: "324px",
+    },
+    border: "none",
+  },
+  collapserow: {
+    "& > *": {
+      borderBottom: "unset",
+    },
+  },
+  menubutton: {
+    color: theme.palette.primary.main,
+    minWidth: 0,
+    margin: "0px !important",
+    padding: "0px !important",
+    height: "44px !important",
+    width: "38px !important",
+    cursor: "pointer",
+  },
+  collapsecell: {
+    paddingBottom: 0,
+    paddingTop: 0,
   },
 }));
 
 interface IProps {
   invoices: IInvoice[];
-  createInvoice: (invoice:IInvoice)=>void;
+  createInvoice: (invoice: IInvoice) => void;
+  selectInvoice: (id: string) => void;
+  deleteInvoice: (id: string) => void;
+  selectedInvoice: IInvoice | null;
+  setOpenPopup: (openPopup: boolean) => void;
+  setEditMode: (editMode: boolean) => void;
 }
 
-
 const headCells = [
-  { id: "invoiceNumber", label: "NR FAKTURY", align:"left" },
-  { id: "date", label: "DATA", align:"left" },
-  { id: "customer", label: "KONTRAHENT"},
-  { id: "net", label: "NETTO" },
-  { id: "brutto", label: "BRUTTO", disableSorting: false },
+  { id: "invoiceNumber", label: "NUMER", align: "left" },
+  { id: "date", label: "DATA", align: "left" },
+  { id: "customer", label: "KONTRAHENT", align: "left" },
+  { id: "net", label: "NETTO", hidden: true },
+  { id: "brutto", label: "BRUTTO", hidden: true },
+  { id: "actions", label: "", disableSorting: true },
 ];
 
-export const InvoiceList: React.FC<IProps> = ({ invoices,
-  createInvoice
+function Row(props: any) {
+  const {
+    row,
+    selectInvoice,
+    deleteInvoice,
+    setOpenPopup,
+    setEditMode,
+  } = props;
+  const [open, setOpen] = React.useState(false);
+  const classes = useStyles();
+  const opencollapsible = () => setOpen(!open);
+  const deleterow = () => {
+    deleteInvoice(row.id);
+  };
+  const selectrow = () => {
+    selectInvoice(row.id);
+    setOpenPopup(true);
+  };
+  const editrow = () => {
+    selectInvoice(row.id);
+    setEditMode(true);
+    setOpenPopup(true);
+  };
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
+  const dialogclose = () => {
+    setConfirmDialog({ ...confirmDialog, isOpen: false });
+  };
+  const titlesub =
+    "Czy na pewno chcesz usunąć fakturę kontrahenta " + row.customer + " ?";
+  const dialogfunction = () => {
+    setConfirmDialog({
+      isOpen: true,
+      title: titlesub,
+      subTitle: "Nie można cofnąć tej operacji!",
+    });
+  };
+
+  return (
+    <React.Fragment>
+      <TableRow className={classes.collapserow}>
+        <TableCell component="th" scope="row">
+          {row.invoiceNumber}
+        </TableCell>
+        <TableCell>{row.date.toString()}</TableCell>
+        <TableCell className={classes.customer}>{row.customer}</TableCell>
+        <Hidden xsDown>
+          <TableCell align="right">{row.net}</TableCell>
+          <TableCell align="right">{row.gross}</TableCell>
+        </Hidden>
+        <TableCell align="right" className={classes.menubutton}>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            className={classes.menubutton}
+            onClick={opencollapsible}
+          >
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell className={classes.collapsecell} colSpan={6}>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Controls.Button
+              color="primary"
+              text="POGLĄD"
+              icon={<ReceiptRoundedIcon />}
+              className={classes.collapsebutton}
+              onClick={selectrow}
+            />
+            <Controls.Button
+              color="primary"
+              text="EDYTUJ"
+              icon={<EditRoundedIcon />}
+              className={classes.collapsebutton}
+              onClick={editrow}
+            />
+            <Controls.Button
+              color="primary"
+              text="USUŃ"
+              icon={<DeleteOutlineRoundedIcon />}
+              className={classes.collapsebutton}
+              onClick={dialogfunction}
+            />
+          </Collapse>
+        </TableCell>
+      </TableRow>
+      <ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+      >
+        <Controls.Button
+          color="primary"
+          text="POWRÓT"
+          icon={<UndoRoundedIcon />}
+          className={classes.collapsebutton}
+          onClick={dialogclose}
+        />
+        <Controls.Button
+          color="primary"
+          text="USUŃ"
+          icon={<DeleteOutlineRoundedIcon />}
+          className={classes.collapsebutton}
+          onClick={deleterow}
+        />
+      </ConfirmDialog>
+    </React.Fragment>
+  );
+}
+
+export const InvoiceList: React.FC<IProps> = ({
+  invoices,
+  selectInvoice,
+  selectedInvoice,
+  deleteInvoice,
+  setOpenPopup,
+  setEditMode,
 }) => {
   const classes = useStyles();
   const [filterFn, setFilterFn] = useState({
@@ -117,13 +264,6 @@ export const InvoiceList: React.FC<IProps> = ({ invoices,
       return items;
     },
   });
-  const [openPopup, setOpenPopup] = useState(false);
-  const [notify, setNotify] = useState({
-    isOpen: false,
-    message: "",
-    type: "",
-  });
-
   const {
     TblContainer,
     TblHead,
@@ -135,7 +275,7 @@ export const InvoiceList: React.FC<IProps> = ({ invoices,
     let target = e.target;
     setFilterFn({
       fn: (items: any) => {
-        if (target.value == "") return items;
+        if (target.value === "") return items;
         else
           return items.filter((x: any) =>
             x.customer.toLowerCase().includes(target.value.toLowerCase())
@@ -143,64 +283,43 @@ export const InvoiceList: React.FC<IProps> = ({ invoices,
       },
     });
   };
-  
-  const openpp = () => {setOpenPopup(true);}
+
   return (
-    <>
-      <Paper elevation={2} className={classes.ovrflow}>
-        <TableRow className={classes.flexbox}>
-          <Controls.Button
-            color="primary"
-            text="DODAJ"
-            icon={<AddOutlinedIcon />}
-            className={classes.toolbarRoot}
-            onClick={openpp}
-          />
-        </TableRow>
-        <TblContainer>
-          <TblHead></TblHead>
-          <TableBody>
-            {recordsAfterPagingAndSorting().map((row: any) => (
-              <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                  {row.invoiceNumber}
-                </TableCell>
-                <TableCell>{row.date.toString().split('T')[0]}</TableCell>
-                <TableCell align="right">{row.customer}</TableCell>
-                <Hidden xsDown>
-                <TableCell align="right">{row.net}</TableCell>
-                <TableCell align="right">{row.gross}</TableCell>
-                </Hidden>
-              </TableRow>
-            ))}
-          </TableBody>
-        </TblContainer>
-        <TableRow className={classes.flexbox}>
-          <TblPagination id="Pagination" />
-          <TableCell className={classes.noBorder}>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <Search />
-              </div>
-              <InputBase
-                onChange={handleSearch}
-                placeholder="Szukaj kontrahenta..."
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
+    <Paper elevation={2} className={classes.ovrflow}>
+      <TblContainer>
+        <TblHead></TblHead>
+        <TableBody>
+          {recordsAfterPagingAndSorting().map((row: IInvoice) => (
+            <Row
+              key={row.id}
+              row={row}
+              selectInvoice={selectInvoice}
+              selectedInvoice={selectedInvoice}
+              deleteInvoice={deleteInvoice}
+              setOpenPopup={setOpenPopup}
+              setEditMode={setEditMode}
+            />
+          ))}
+        </TableBody>
+      </TblContainer>
+      <TableRow className={classes.flexbox}>
+        <TblPagination id="Pagination" />
+        <TableCell className={classes.noBorder}>
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <Search />
             </div>
-          </TableCell>
-        </TableRow>
-      </Paper>
-      <Popup
-        title="FAKTURA"
-        openPopup={openPopup}
-        setOpenPopup={setOpenPopup}
-      >
-        <InvoiceForm createInvoice={createInvoice} />
-      </Popup>
-    </>
+            <InputBase
+              onChange={handleSearch}
+              placeholder="Szukaj kontrahenta..."
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+            />
+          </div>
+        </TableCell>
+      </TableRow>
+    </Paper>
   );
 };
